@@ -46,7 +46,7 @@ set t_Co=256                        " Explicitly tell Vim that the terminal supp
 
 " Colors and Theme {{{2
 set background=dark
-colorscheme badwolf 
+colorscheme ir_black
 
 " Auto Commands {{{1
 " Auto source vimrc on save  {{{2

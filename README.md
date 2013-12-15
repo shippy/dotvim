@@ -1,7 +1,7 @@
 # Installing on your own machine
 
     cd ~
-    git clone http://github.com/zjrosen1/vim.git ~/.vim
+    git clone http://github.com/edance/vim.git ~/.vim
     ln -s ~/.vim/vimrc ~/.vimrc
     ln -s ~/.vim/gvimrc ~/.gvimrc
     cd ~/.vim
@@ -17,3 +17,5 @@
 
 ## Upgrading all bundled plugins
     git submodule foreach git pull origin master
+
+# Big Thanks to zjrosen1 ;)
