@@ -1,17 +1,17 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                                              "
-"	 	 My WIP .vimrc		Author: Zack Rosen		Update: 10/30/13	 "
-"                                                              "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"-------------------------
+"	Author: Zack Rosen
+"	Email: zjrosen@gmail.com
+" Info: A solid vimrc
+"-------------------------
 
 " Pathogen for the win {{{1
 " Plug-in Manager
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 call pathogen#infect()
-filetype plugin indent on
 
 " Prefrences {{{1
+filetype plugin indent on
 let mapleader =","								 " Set global mapleader
 set nocompatible
 set noswapfile
@@ -19,13 +19,19 @@ set autoindent
 set smartindent
 set hidden                          " Useful for auto setting hidden buffers
 syntax enable                       " Enable syntax highlighting
+set nostartofline                   " Don't reset cursor to start of line when moving around
+set ttyfast
+
+" Searching/Moving {{{2
+" nnoremap / /\v
+" vnoremap / /\v
 set gdefault                        " Add the g flag to search/replace by default
 set incsearch                       " Highlight dynamically as pattern is typed
+" set hlsearch
 set ignorecase											" Ignore case when searching
 set smartcase												" Try and be smart about cases
-set nostartofline                   " Don't reset cursor to start of line when moving around
-set modelines=1 
-" command W w												" Remap :W to :w
+nnoremap j gj
+nnoremap k gk
 
 " Appearance {{{2
 set number                          " Always show line numbers
@@ -43,6 +49,7 @@ set encoding=utf-8
 set cursorline                      " Highlight current line
 set laststatus=2                    " Always show the statusline
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
+set backspace=indent,eol,start
 
 " Colors and Theme {{{2
 set background=dark
@@ -67,26 +74,30 @@ if &t_Co > 2 || has("gui_running")
 	syntax on			" Enable syntax highlighting
 endif
 
+" Save on losing focus {{{2
+au FocusLost * :wa
 " Mappings {{{1
-" Tab Editing {{{2
-" Useful mappings for managing taps
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove<cr>
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+inoremap <C-c> <esc>								" Just smart
+inoremap jj <ESC>										" Thank You Steve
+
+command! W w												" Remap :W to :w
+
+nnoremap Y y$												" Yank to end of line with Y
+
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
+
+" Not sure about this one quite yet
+ nnoremap ; :
+
+" Control space to command mode
+nnoremap <Nul> :
+
+" :Wrap to wrap lines command! -nargs=* Wrap set wrap linebreak nolist
 
 " Folding {{{2
 nnoremap <Space> za
 " nnoremap <Space> /
-
-" Highlighting  ,h {{{2
-nmap <silent> <leader>h :set hlsearch!<CR>
-
-" Update vimrc ,v {{{2
-nmap <leader>v :tabedit $MYVIMRC<CR>
-" Update snipmate ,sc {{{2
-nmap <leader>sc :tabedit ~/.vim/bundle/snipmate/snippets<CR>
 
 " Bubble single lines {{{2
 nmap <C-Up> [e
@@ -94,8 +105,6 @@ nmap <C-Down> ]e
 " Bubble multiple lines
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
-" Visually select the text that was last edited/pasted
-nmap gV `[v`]
 
 " Window Switching {{{2
 map <C-h> <C-w>h
@@ -103,18 +112,15 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Viewport Scrolling {{{2
-nnoremap <C-e> 3<C-e>								" Speed up viewport scrolling
-nnoremap <C-y> 3<C-y>
-
 " Indent Mapping {{{2
 nmap <D-[> <<
 nmap <D-]> >>
 vmap <D-[> <gv
 vmap <D-[> >gv
 
-" Spell Checking {{{2
-nmap <silent> <leader>s :set spell!<CR>      
+" Viewport Scrolling {{{2
+nnoremap <C-e> 3<C-e>								" Speed up viewport scrolling
+nnoremap <C-y> 3<C-y>
 
 " Syntax highlighting groups for word under cursor {{{2
 nmap <C-S-P> :call <SID>SynStack()<CR>
@@ -125,23 +131,45 @@ function! <SID>SynStack()
 	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+" Fucking F1 {{{2
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+" Leader Mappings {{{1
+" Toggle Highlighting -- h {{{2
+nmap <silent> <leader>h :set hlsearch!<CR>
+
+" Update vimrc -- v OR ev {{{2
+nmap <leader>v :tabedit $MYVIMRC<CR>
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" Update snipmate -- sc {{{2
+nmap <leader>sc :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
+
+" Toggle Spell Checking -- s {{{2
+nmap <silent> <leader>s :set spell!<CR>
+
+" Toggle set list -- l {{{2
+nmap <Leader>l :set list!<CR>
+" Ack -- a {{{2
+nmap <Leader>a :Ack
+" Tab Editing {{{2
+" Useful mappings for managing taps
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove<cr>
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
 " Extras for now {{{2
-nmap <Leader>l :set list!<CR>		" Shortcut to rapidly toggle `set list` 
+nnoremap <leader>ft Vatzf
+
+nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
 nmap <Leader>" viwS"
-inoremap <C-c> <esc>						" Just smart
-nnoremap Y y$										" Yank to end of line with Y
-nnoremap j gj
-nnoremap k gk
 
-autocmd FileType scss inoremap { {<cr>}<C-o>O
-autocmd FileType scss inoremap : : ;<esc>i
-autocmd FileType scss inoremap : : ;<esc>i
+" like gv but for pasted text
+" nnoremap <leader>v V`]
 
-" :Wrap to wrap lines
-command! -nargs=* Wrap set wrap linebreak nolist
-
-" Not sure about this one quite yet
-nnoremap ; :
 
 " Functions {{{1
 " Remove trailing white space {{{2
@@ -199,29 +227,30 @@ function! SummarizeTabs()
 endfunction
 
 " Plugins {{{1
+" Easy-motion {{{2
+" let g:EasyMotion_leader_key = '<Leader>'
+" Emmet {{{2
+let g:user_emmet_leader_key = '<c-e>'
 "Fugitive Git {{{2
-nmap <leader>ga :Git add .<CR>
+nmap <leader>ga :Git add -A<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Git push<CR>
-" Syntastic {{{2
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 5
-" NerdTree {{{2
-autocmd vimenter * if !argc() | NERDTree | endif " Load NERDTree by default for directory
-map <C-n><C-t> :NERDTreeToggle<CR>
+" CoffeeScript {{{2
+nnoremap <leader>cw :CoffeeWatch<cr>
+nnoremap <leader>cr :CoffeeRun<cr>
 " CtrlP {{{2
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
 let g:ctrlp_jump_to_buffer = 2 " Jump to tab AND buffer if already open
 let g:ctrlp_split_window = 1 " <CR> = New Tab
-" Tabularize {{{2
-if exists(":Tabularize")
-	nmap <Leader>a= :Tabularize /=<CR>
-	vmap <Leader>a= :Tabularize /=<CR>
-	nmap <Leader>a: :Tabularize /:\zs<CR>
-	vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
+" MultipleCursors {{{2
+let g:multi_cursor_quit_key='<C-c>'
+" NerdTree {{{2
+autocmd vimenter * if !argc() | NERDTree | endif " Load NERDTree by default for directory
+map <C-n><C-t> :NERDTreeToggle<CR>
+" Powerline {{{2
+let g:Powerline_symbols = 'fancy'
 " Rainbow Parens {{{2
 nmap <leader>r :RainbowParenthesesToggle<CR>
 au Syntax * RainbowParenthesesLoadRound
@@ -229,14 +258,16 @@ au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
-" Powerline {{{2
-let g:Powerline_symbols = 'fancy'
-" Easy-motion {{{2
-" let g:EasyMotion_leader_key = '<Leader>'
-" Emmet {{{2
-let g:user_emmet_leader_key = '<c-e>'
-" Powerline {{{2
-let g:Powerline_symbols = 'fancy' 
+" Syntastic {{{2
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 5
+" Tabularize {{{2
+if exists(":Tabularize")
+	nmap <Leader>a= :Tabularize /=<CR>
+	vmap <Leader>a= :Tabularize /=<CR>
+	nmap <Leader>a: :Tabularize /:\zs<CR>
+	vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 " Modelines {{{1
-set modelines=1 
+set modelines=1
 " vim: set foldmethod=marker:
