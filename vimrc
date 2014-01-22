@@ -88,10 +88,10 @@ nnoremap Y y$												" Yank to end of line with Y
 nmap gV `[v`]
 
 " Not sure about this one quite yet
- nnoremap ; :
+nnoremap ; :
 
-" Control space to command mode
-nnoremap <Nul> :
+" Control space to search mode
+nnoremap <Nul> /
 
 " :Wrap to wrap lines command! -nargs=* Wrap set wrap linebreak nolist
 
@@ -246,6 +246,8 @@ let g:ctrlp_jump_to_buffer = 2 " Jump to tab AND buffer if already open
 let g:ctrlp_split_window = 1 " <CR> = New Tab
 " MultipleCursors {{{2
 let g:multi_cursor_quit_key='<C-c>'
+" Markdown {{{2
+let g:vim_markdown_initial_foldlevel=1
 " NerdTree {{{2
 autocmd vimenter * if !argc() | NERDTree | endif " Load NERDTree by default for directory
 map <C-n><C-t> :NERDTreeToggle<CR>
