@@ -1,4 +1,4 @@
-[submodule "bundle/fugitive"]
+[submodul "bundle/fugitive"]
 	path = bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "bundle/nerdtree"]
@@ -64,21 +64,24 @@
 [submodule "bundle/vim-snipmate"]
 	path = bundle/vim-snipmate
 	url = https://github.com/garbas/vim-snipmate.git
-[submodule "bundle/vim-snippets"]
-	path = bundle/vim-snippets
-	url = https://github.com/honza/vim-snippets
 [submodule "bundle/SuperTab"]
 	path = bundle/SuperTab
 	url = https://github.com/ervandew/supertab.git
-[submodule "bundle/smartinput"]
-	path = bundle/smartinput
-	url = https://github.com/kana/vim-smartinput.git
-[submodule "bundle/multiple-cursors"]
-	path = bundle/multiple-cursors
-	url = https://github.com/terryma/vim-multiple-cursors.git
 [submodule "bundle/markdown-mode"]
 	path = bundle/markdown-mode
 	url = https://github.com/plasticboy/vim-markdown.git
 [submodule "bundle/mustache"]
 	path = bundle/mustache
 	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule "bundle/multiple-cursors"]
+	path = bundle/multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors.git
+	ignore = untracked
+[submodule "bundle/vim-snippets"]
+	path = bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+	ignore = untracked
+[submodule "bundle/smartinput"]
+	path = bundle/smartinput
+	url = https://github.com/kana/vim-smartinput.git
+	ignore = untracked
