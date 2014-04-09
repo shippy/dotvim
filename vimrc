@@ -89,7 +89,7 @@ nnoremap Y y$												" Yank to end of line with Y
 nmap gV `[v`]
 
 " Not sure about this one quite yet
-" nnoremap ; :
+nnoremap ; :
 
 nmap fq :q!<CR>
 " Control space to search mode
