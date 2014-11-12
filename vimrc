@@ -1,6 +1,6 @@
 "-------------------------
-"	Author: Zack Rosen
-"	Email: zjrosen@gmail.com
+"	Author: Evan Dancer
+"	Email: edance4@gmail.com
 " Info: A solid vimrc
 "-------------------------
 
@@ -77,8 +77,7 @@ endif
 " Save on losing focus {{{2
 au FocusLost * :wa
 " Mappings {{{1
-inoremap <C-c> <esc>								" Just smart
-inoremap jj <ESC>										" Thank You Steve
+inoremap jk <ESC>
 
 
 command! W w												" Remap :W to :w
@@ -87,9 +86,6 @@ nnoremap Y y$												" Yank to end of line with Y
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
-
-" Not sure about this one quite yet
-nnoremap ; :
 
 nmap fq :q!<CR>
 " Control space to search mode
