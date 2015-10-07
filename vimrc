@@ -1,17 +1,24 @@
-"-------------------------
-"	Original Author: Evan Dancer
-"	Email: edance4@gmail.com
-" Info: A solid vimrc
-"-------------------------
-"
+" Inspired by Evan Dancer's .vimrc
 " TODO: http://tlattimore.com/blog/distraction-free-writing-in-vim/
 "
-" Pathogen for the win {{{1
-" Plug-in Manager
+" Pathogen to load plugins {{{1
 set nocompatible
+
+" Exceptions for Mac
+let g:pathogen_disabled = []
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+    call add(g:pathogen_disabled, 'YouCompleteMe')
+    call add(g:pathogen_disabled, 'phpcomplete-extended')
+    call add(g:pathogen_disabled, 'phpcomplete_extended')
+    call add(g:pathogen_disabled, 'vimproc')
+  endif
+endif
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
-"call pathogen#infect()
+call pathogen#infect()
 
 " Preferences {{{1
 filetype on
