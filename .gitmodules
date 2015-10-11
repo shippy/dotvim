@@ -253,3 +253,15 @@
 [submodule "bundle/goyo.vim"]
 	path = bundle/goyo.vim
 	url = https://github.com/junegunn/goyo.vim.git
+[submodule "bundle/vim-textobj-sentence"]
+	path = bundle/vim-textobj-sentence
+	url = https://github.com/reedes/vim-textobj-sentence.git
+[submodule "bundle/vim-lexical"]
+	path = bundle/vim-lexical
+	url = https://github.com/reedes/vim-lexical
+[submodule "bundle/vim-litecorrect"]
+	path = bundle/vim-litecorrect
+	url = https://github.com/reedes/vim-litecorrect
+[submodule "bundle/vim-markdown-concealed"]
+	path = bundle/vim-markdown-concealed
+	url = https://github.com/prurigro/vim-markdown-concealed.git

@@ -8,12 +8,12 @@ set nocompatible
 let g:pathogen_disabled = []
 if has("unix")
   let s:uname = system("uname -s")
-  if s:uname == "Darwin\n"
+  "if s:uname == "Darwin\n"
     call add(g:pathogen_disabled, 'YouCompleteMe')
     call add(g:pathogen_disabled, 'phpcomplete-extended')
     call add(g:pathogen_disabled, 'phpcomplete_extended')
     call add(g:pathogen_disabled, 'vimproc')
-  endif
+  "endif
 endif
 
 call pathogen#runtime_append_all_bundles()
