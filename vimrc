@@ -78,7 +78,8 @@ set wildmode=longest:full,full
 set cursorline                      " Highlight current line
 set laststatus=2                    " Always show the statusline
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
-"set backspace=indent,eol,start
+set backspace=indent,eol,start
+set colorcolumn=80
 
 " Colors and Theme {{{2
 try
@@ -183,6 +184,10 @@ nmap <Leader>" viwS"
 
 " like gv but for pasted text
 " nnoremap <leader>v V`]
+
+" Add a line without changing position or leaving mode
+map <leader>o :set paste<cr>m`o<esc>``:set nopaste<cr>
+map <leader>O :set paste<cr>m`O<esc>``:set nopaste<cr>
 
 
 " Functions {{{1

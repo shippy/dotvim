@@ -1,5 +1,8 @@
 " as per http://www.mdlerch.com/emailing-mutt-and-vim-advanced-config.html
 " TODO: Implement http://tlattimore.com/blog/distraction-free-writing-in-vim/
+setl tw=72
+setl fo=aw
+
 function IsReply()
     if line('$') > 1
         :g/^>\s\=--\s\=$/,$ delete
@@ -18,8 +21,5 @@ augroup mail_filetype
     autocmd VimEnter /tmp/user* :exe 'startinsert'
 augroup END
 
-setl tw=72
-setl fo=aw
-"Goyo
-call pencil#init()
+"call pencil#init()
 "let b:nerdtree_tabs_open_on_console_startup = 0
