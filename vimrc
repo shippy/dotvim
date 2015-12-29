@@ -26,13 +26,14 @@ filetype plugin on
 filetype indent on
 syntax on
 let mapleader =","								 " Set global mapleader
-let maplocalleader="\\"
+"let maplocalleader="\\"
 set nocompatible
 set noswapfile
 set autoindent
 set smartindent
 set hidden                          " Useful for auto setting hidden buffers
 set nostartofline                   " Don't reset cursor to start of line when moving around
+set whichwrap+=<,>,h,l,[,]          " Wrap over end-of-line to next " TODO: Disable h & l if trouble arises
 set ttyfast
 
 set encoding=utf-8
@@ -80,6 +81,7 @@ set laststatus=2                    " Always show the statusline
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
 set backspace=indent,eol,start
 set colorcolumn=80
+set foldlevel=99    "File unfolded, always - use zM to close
 
 " Colors and Theme {{{2
 try
@@ -90,10 +92,17 @@ endtry
 set background=dark
 
 " Auto Commands {{{1
+" Only highlight current line in active split
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cul
+    autocmd WinLeave * set nocul
+augroup END
 " Auto source vimrc on save  {{{2
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    autocmd BufWritePost $MYVIMRC call Pl#ReloadColorscheme()
 augroup END " }
 
 " Restore cursor position {{{2
@@ -106,6 +115,12 @@ endif
 
 " Save on losing focus {{{2
 au FocusLost * :wa
+
+" Automatically leave insert mode after `updatetime` ms of inaction (Vimtips)
+au CursorHoldI * stopinsert
+au InsertEnter * let updaterestore=&updatetime | set updatetime=10000
+au InsertLeave * let &updatetime=updaterestore
+
 " Mappings {{{1
 inoremap jk <ESC>
 
@@ -118,24 +133,20 @@ nmap fw :w!<cr>
 command! W w !sudo tee % > /dev/null
 nmap fq :q!<CR>
 
+" Explode split to tab
+nmap st <C-w>T
+
+" Toggle paste
+nmap <leader>ip :set paste!<CR>
+
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
 " Toggle errors
 nmap <leader>st :SyntasticToggleMode<cr>
-" Filetype {{{2
-nmap _ht :set ft=html<CR>
-nmap _ph :set ft=php<CR>
-nmap _py :set ft=python<CR>
-nmap _rb :set ft=ruby<CR>
-nmap _js :set ft=javascript<CR>
-nmap _zs :set ft=zsh<CR>
-nmap _zs :set ft=mkd<CR>
-nmap _vi :set ft=vim<CR>
 
-" Folding {{{2
-"nnoremap <Space> za
-"nnoremap <Space> /
+" Toggle Spell Checking 
+nmap <silent> <leader>s :set spell!<CR>
 
 " Bubble single lines {{{2
 nmap <C-Up> [e
@@ -153,20 +164,16 @@ vnoremap <F1> <ESC>
 nnoremap Q <nop>
 
 " Leader Mappings {{{1
-
 " Update vimrc -- v OR ev {{{3
 nmap <leader>v :tabedit $MYVIMRC<CR>
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
 " Update snipmate -- sc {{{2
 nmap <leader>sc :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
 
-" Toggle Spell Checking -- s {{{2
-nmap <silent> <leader>s :set spell!<CR>
-
-" Toggle set list -- l {{{2
-"nmap <Leader>l :set list!<CR>
 " Ack -- a {{{2
 nmap <Leader>a :Ack
+
 " Tab Editing {{{2
 " Useful mappings for managing taps
 map <leader>tn :tabnew<cr>
@@ -175,22 +182,29 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
+map <C-t> :tabnext<CR>
+
 " Extras for now {{{2
-nnoremap <leader>ft Vatzf
 
-nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-
+" Add quotes around word
 nmap <Leader>" viwS"
-
-" like gv but for pasted text
-" nnoremap <leader>v V`]
 
 " Add a line without changing position or leaving mode
 map <leader>o :set paste<cr>m`o<esc>``:set nopaste<cr>
 map <leader>O :set paste<cr>m`O<esc>``:set nopaste<cr>
 
-
 " Functions {{{1
+" Word count in LaTeX {{{2
+function! WC()
+    let filename = expand("%")
+    let cmd = "detex " . filename . " | wc -w | xargs | tr -d '\n'"
+    let result = system(cmd) . " words"
+    echo result
+endfunction
+command! WC call WC()
+
+nmap <localleader>lw :WC<CR>
+
 " Remove trailing white space {{{2
 function! Preserve(command)
 	" Preparation: save last search, and cursor position.
@@ -256,6 +270,9 @@ augroup END
 
 " Plugins {{{1
 
+" Powerline
+"call Pl#Theme#InsertSegment()
+
 " Easy-motion {{{2
 "let g:EasyMotion_leader_key = '<Leader>'
 
@@ -284,8 +301,10 @@ let g:ctrlp_split_window = 1 " <CR> = New Tab
 let g:ctrlp_show_hidden = 1
 nmap <leader>b :CtrlPBuffer<CR>
 nmap <leader>p :CtrlP<CR>
+
 " Gundo
 nmap <leader>g :GundoToggle<CR>
+let g:gundo_right = 1
 
 " MultipleCursors {{{2
 let g:multi_cursor_quit_key='<C-c>'
@@ -294,15 +313,12 @@ let g:multi_cursor_quit_key='<C-c>'
 let g:vim_markdown_initial_foldlevel=1
 
 " NerdTree {{{2
-"autocmd vimenter * if !argc() | NERDTree | endif " Load NERDTree by default for directory
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
-"map <leader>nn :NERDTreeToggle<CR>
 
 " NerdTreeTabs
 nmap <Leader>n <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 0
-
 
 " NerdCommenter (maps <C-/>)
 map <C-_> <Plug>NERDCommenterToggle 
@@ -324,22 +340,16 @@ let g:syntastic_check_on_wq = 0
 
 " Modelines {{{1
 set modelines=1
-" vim: set foldmethod=marker:
 
-" Customizations (Simon) {{{1
-let g:rspec_command = 'call Send_to_Tmux("xvfb-run bundle exec rspec {spec}\n")'
+" RSpec / Rails / Tmux integration
+"let g:rspec_command = 'call Send_to_Tmux("xvfb-run bundle exec rspec {spec}\n")'
 "map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
+"map <Leader>s :call RunNearestSpec()<CR>
 "map <Leader>l :call RunLastSpec()<CR>
 "map <Leader>a :call RunAllSpecs()<CR>
 
+" EnhancedJumps
 let g:EnhancedJumps_CaptureJumpMessages = 0
-
-" automatically leave insert mode after `updatetime` ms of inaction (per
-" VimTips)
-au CursorHoldI * stopinsert
-au InsertEnter * let updaterestore=&updatetime | set updatetime=10000
-au InsertLeave * let &updatetime=updaterestore
 
 " Using Cosco to smart-add semicolons / commas
 autocmd FileType javascript,css,php nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
@@ -349,19 +359,62 @@ autocmd FileType javascript,css,php inoremap <silent> <Leader>; <c-o>:call cosco
 "let g:snipMate = {}
 "let g:snipMate.scope_aliases['php'] = 'php'
 
-" GoYo
-function! g:GoyoBefore()
-  let b:quitting = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-endfunction
+" Using vim as a writer / disable
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,tex call pencil#init() | setl spell spl=en
+augroup END
 
-function! g:GoyoAfter()
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    qa
+augroup textobj_sentence
+  autocmd!
+  autocmd FileType markdown,mkd,tex,text call textobj#sentence#init()
+augroup END
+"set iskeyword+=,-_
+
+let g:pencil#wrapModeDefault = 'hard'
+
+let g:pencil#autoformat_blacklist = [
+        \ 'markdownCode',
+        \ 'markdownUrl',
+        \ 'markdownIdDeclaration',
+        \ 'markdownLinkDelimiter',
+        \ 'markdownHighlight[A-Za-z0-9]+',
+        \ 'mkdCode',
+        \ 'mkdIndentCode',
+        \ 'markdownFencedCodeBlock',
+        \ 'markdownInlineCode',
+        \ 'mmdTable[A-Za-z0-9]*',
+        \ 'txtCode',
+        \ 'texAbstract',
+        \ 'texBeginEndName',
+        \ 'texDelimiter',
+        \ 'texDocType',
+        \ 'texInputFile',
+        \ 'texMath',
+        \ 'texRefZone',
+        \ 'texSection$',
+        \ 'texStatement',
+        \ 'texTitle',
+        \ ]
+
+" crosh makes a mess of unicode -> disable concealment
+let g:tex_conceal='b'
+
+"Goyo
+nmap <leader>g :Goyo<CR>
+
+" Goyo set up to turn off tmux status line on entering / leaving
+function! s:goyo_enter()
+  if exists('$TMUX')
+    silent !tmux set status off
   endif
 endfunction
 
-let g:goyo_callbacks = [function('g:GoyoBefore'), function('g:GoyoAfter')]
-"autocmd User GoyoEnter call <SID>goyo_enter()
-"autocmd User GoyoLeave call <SID>goyo_leave()
+function! s:goyo_leave()
+  if exists('$TMUX')
+    silent !tmux set status on
+  endif
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
