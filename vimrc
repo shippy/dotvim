@@ -277,7 +277,7 @@ augroup END
 "let g:EasyMotion_leader_key = '<Leader>'
 
 " EasyTag
-set tags=./tags;
+set tags=~/tags;
 "let g:easytags_dynamic_files = 2
 "let g:easytags_autorecurse = 1
 
@@ -360,18 +360,19 @@ autocmd FileType javascript,css,php inoremap <silent> <Leader>; <c-o>:call cosco
 "let g:snipMate.scope_aliases['php'] = 'php'
 
 " Using vim as a writer / disable
-augroup pencil
+augroup writing
   autocmd!
-  autocmd FileType markdown,mkd,tex call pencil#init() | setl spell spl=en
+  autocmd FileType markdown,mkd,tex,text setl spell spl=en |
+        \ call textobj#sentence#init() |
+        \ call pencil#init() |
+        \ call litecorrect#init() | 
+        \ call lexical#init() |
+        \ :Goyo
 augroup END
 
-augroup textobj_sentence
-  autocmd!
-  autocmd FileType markdown,mkd,tex,text call textobj#sentence#init()
-augroup END
-"set iskeyword+=,-_
+set iskeyword+=_
 
-let g:pencil#wrapModeDefault = 'hard'
+let g:pencil#wrapModeDefault = 'soft'
 
 let g:pencil#autoformat_blacklist = [
         \ 'markdownCode',
@@ -399,6 +400,9 @@ let g:pencil#autoformat_blacklist = [
 
 " crosh makes a mess of unicode -> disable concealment
 let g:tex_conceal='b'
+
+" Markdown
+let g:vim_markdown_folding_disabled=1
 
 "Goyo
 nmap <leader>g :Goyo<CR>
