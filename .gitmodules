@@ -273,3 +273,6 @@
 [submodule "bundle/vim-textobj-punctuation"]
 	path = bundle/vim-textobj-punctuation
 	url = https://github.com/beloglazov/vim-textobj-punctuation.git
+[submodule "bundle/vim-prosession"]
+	path = bundle/vim-prosession
+	url = https://github.com/dhruvasagar/vim-prosession.git
