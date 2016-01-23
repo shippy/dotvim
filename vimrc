@@ -82,6 +82,7 @@ set t_Co=256                        " Explicitly tell Vim that the terminal supp
 set backspace=indent,eol,start
 set colorcolumn=80
 set foldlevel=99    "File unfolded, always - use zM to close
+"set guitablabel=\[%N\]\ %t\ %M
 
 " Colors and Theme {{{2
 try
@@ -182,7 +183,7 @@ map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove<cr>
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-map <C-t> :tabnext<CR>
+"map <C-t> :tabnext<CR>
 
 " Extras for now {{{2
 
@@ -332,7 +333,7 @@ let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
 
 " Syntastic {{{2
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
 let g:syntastic_check_on_open = 1
@@ -367,7 +368,8 @@ augroup writing
         \ call pencil#init() |
         \ call litecorrect#init() | 
         \ call lexical#init() |
-        \ :Goyo
+        \ setl columns=86
+        "\ :Goyo
 augroup END
 
 set iskeyword+=_
@@ -420,5 +422,5 @@ function! s:goyo_leave()
   endif
 endfunction
 
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+"autocmd! User GoyoEnter nested call <SID>goyo_enter()
+"autocmd! User GoyoLeave nested call <SID>goyo_leave()
