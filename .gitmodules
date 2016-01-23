@@ -230,10 +230,6 @@
 	path = bundle/vim-pencil
 	url = https://github.com/reedes/vim-pencil.git
   ignore = untracked
-[submodule "bundle/YouCompleteMe"]
-	path = bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe.git
-  ignore = untracked
 [submodule "bundle/phpcomplete-extended"]
 	path = bundle/phpcomplete-extended
 	url = https://github.com/m2mdas/phpcomplete-extended.git
