@@ -1,20 +1,21 @@
 " Inspired by Evan Dancer's .vimrc
-" TODO: http://tlattimore.com/blog/distraction-free-writing-in-vim/
 "
+" TODO: Set up Rails / Gems tag generation
+" https://github.com/tpope/gem-ctags
+" http://benoithamelin.tumblr.com/post/15101202004/using-vim-exuberant-ctags-easy-source-navigation
+" http://blog.sensible.io/2014/05/09/supercharge-your-vim-into-ide-with-ctags.html
+
 " Pathogen to load plugins {{{1
 set nocompatible
 
 " Exceptions for Mac
-let g:pathogen_disabled = []
-if has("unix")
-  let s:uname = system("uname -s")
+"let g:pathogen_disabled = []
+"if has("unix")
+  "let s:uname = system("uname -s")
   "if s:uname == "Darwin\n"
-    call add(g:pathogen_disabled, 'YouCompleteMe')
-    call add(g:pathogen_disabled, 'phpcomplete-extended')
-    call add(g:pathogen_disabled, 'phpcomplete_extended')
-    call add(g:pathogen_disabled, 'vimproc')
+    "Remove plugins from Apple systems
   "endif
-endif
+"endif
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -39,6 +40,9 @@ set ttyfast
 set encoding=utf-8
 
 set ffs=unix,dos,mac
+
+set modelines=1
+
 
 " Searching/Moving {{{2
 set gdefault                        " Add the g flag to search/replace by default
@@ -135,16 +139,17 @@ command! W w !sudo tee % > /dev/null
 nmap fq :q!<CR>
 
 " Explode split to tab
-nmap st <C-w>T
+nmap <leader>st <C-w>T
 
 " Toggle paste
-nmap <leader>ip :set paste!<CR>
+"nmap <leader>ip :set paste!<CR>
+" NOTE: Replace by Unimpaired's yo/yO
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
 " Toggle errors
-nmap <leader>st :SyntasticToggleMode<cr>
+"nmap <leader>st :SyntasticToggleMode<cr>
 
 " Toggle Spell Checking 
 nmap <silent> <leader>s :set spell!<CR>
@@ -191,8 +196,9 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 nmap <Leader>" viwS"
 
 " Add a line without changing position or leaving mode
-map <leader>o :set paste<cr>m`o<esc>``:set nopaste<cr>
-map <leader>O :set paste<cr>m`O<esc>``:set nopaste<cr>
+"map <leader>o :set paste<cr>m`o<esc>``:set nopaste<cr>
+"map <leader>O :set paste<cr>m`O<esc>``:set nopaste<cr>
+" NOTE: Replaced by Unimpaired ]<Space> and [<Space>
 
 " Functions {{{1
 " Word count in LaTeX {{{2
@@ -339,16 +345,6 @@ let g:syntastic_loc_list_height = 5
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Modelines {{{1
-set modelines=1
-
-" RSpec / Rails / Tmux integration
-"let g:rspec_command = 'call Send_to_Tmux("xvfb-run bundle exec rspec {spec}\n")'
-"map <Leader>t :call RunCurrentSpecFile()<CR>
-"map <Leader>s :call RunNearestSpec()<CR>
-"map <Leader>l :call RunLastSpec()<CR>
-"map <Leader>a :call RunAllSpecs()<CR>
-
 " EnhancedJumps
 let g:EnhancedJumps_CaptureJumpMessages = 0
 
@@ -409,18 +405,44 @@ let g:vim_markdown_folding_disabled=1
 "Goyo
 nmap <leader>g :Goyo<CR>
 
-" Goyo set up to turn off tmux status line on entering / leaving
-function! s:goyo_enter()
-  if exists('$TMUX')
-    silent !tmux set status off
-  endif
+" Vimux (although don't forget about vim-ipython)
+autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")<CR>
+autocmd FileType r nmap <leader>vr :call VimuxRunCommand("R")<CR>
+autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("irb")<CR>
+" TODO: RSpec / Rails Console / other testing?
+
+function! VimuxSlime()
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
 endfunction
 
-function! s:goyo_leave()
-  if exists('$TMUX')
-    silent !tmux set status on
-  endif
-endfunction
+" If text is selected, save it in the v buffer and send that buffer it to tmux
+vmap <leader>vs "vy :call VimuxSlime()<CR>
+vmap <C-b> "vy :call VimuxSlime()<CR>
 
-"autocmd! User GoyoEnter nested call <SID>goyo_enter()
-"autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" Select current paragraph and send it to tmux
+nmap <leader>vs vap<Leader>vs<CR>
+
+" Execute current paragraph and move on to the next one
+nmap <C-b> <leader>vs)<CR>
+
+" Vim-RSpec + Vimux
+let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
+map <Leader>rt :call RunCurrentSpecFile()<CR>
+map <Leader>rs :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
+map <Leader>ra :call RunAllSpecs()<CR>
+
+" Using Sneak to replace f
+"nmap f <Plug>Sneak_s
+"nmap F <Plug>Sneak_S
+"xmap f <Plug>Sneak_s
+"xmap F <Plug>Sneak_S
+"omap f <Plug>Sneak_s
+"omap F <Plug>Sneak_S
+
+" Gist
+let g:gist_post_private = 1
+vmap <leader>gs :'<,'>Gist
+nmap <leader>gs :Gist
+nmap <leader>gS :Gist -m
