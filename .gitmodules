@@ -126,14 +126,6 @@
 	path = bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise.git
   ignore = untracked
-[submodule "bundle/tslime"]
-	path = bundle/tslime
-	url = https://github.com/sjl/tslime.vim.git
-  ignore = untracked
-[submodule "bundle/vim-fish"]
-	path = bundle/vim-fish
-	url = https://github.com/dag/vim-fish.git
-  ignore = untracked
 [submodule "bundle/vim-rspec"]
 	path = bundle/vim-rspec
 	url = https://github.com/thoughtbot/vim-rspec.git
@@ -206,10 +198,6 @@
 	path = bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
   ignore = untracked
-[submodule "bundle/Vim-R-plugin"]
-	path = bundle/Vim-R-plugin
-	url = https://github.com/vim-scripts/Vim-R-plugin.git
-  ignore = untracked
 [submodule "bundle/cosco.vim"]
 	path = bundle/cosco.vim
 	url = https://github.com/lfilho/cosco.vim.git
@@ -229,14 +217,6 @@
 [submodule "bundle/vim-pencil"]
 	path = bundle/vim-pencil
 	url = https://github.com/reedes/vim-pencil.git
-  ignore = untracked
-[submodule "bundle/phpcomplete-extended"]
-	path = bundle/phpcomplete-extended
-	url = https://github.com/m2mdas/phpcomplete-extended.git
-  ignore = untracked
-[submodule "bundle/vimproc.vim"]
-	path = bundle/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim.git
   ignore = untracked
 [submodule "bundle/spss-syntax-highlighting-file"]
 	path = bundle/spss-syntax-highlighting-file
@@ -272,3 +252,9 @@
 [submodule "bundle/vim-prosession"]
 	path = bundle/vim-prosession
 	url = https://github.com/dhruvasagar/vim-prosession.git
+[submodule "bundle/vim-ipython"]
+	path = bundle/vim-ipython
+	url = https://github.com/ivanov/vim-ipython.git
+[submodule "bundle/webapi-vim"]
+	path = bundle/webapi-vim
+	url = https://github.com/mattn/webapi-vim.git
