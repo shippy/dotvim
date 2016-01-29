@@ -4,6 +4,8 @@
 " https://github.com/tpope/gem-ctags
 " http://benoithamelin.tumblr.com/post/15101202004/using-vim-exuberant-ctags-easy-source-navigation
 " http://blog.sensible.io/2014/05/09/supercharge-your-vim-into-ide-with-ctags.html
+"
+" TODO: Consider https://github.com/AndrewRadev/splitjoin.vim
 
 " Pathogen to load plugins {{{1
 set nocompatible
@@ -20,6 +22,7 @@ set nocompatible
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 call pathogen#infect()
+
 
 " Preferences {{{1
 filetype on
@@ -97,6 +100,14 @@ endtry
 set background=dark
 
 " Auto Commands {{{1
+" Get autocompletion for filetypes
+set omnifunc=syntaxcomplete#Complete
+au FileType php setl ofu=phpcomplete#CompletePHP
+au FileType ruby,eruby setl ofu=rubycomplete#Complete
+au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
+au FileType c setl ofu=ccomplete#CompleteCpp
+au FileType css setl ofu=csscomplete#CompleteCSS
+
 " Only highlight current line in active split
 augroup BgHighlight
     autocmd!
@@ -299,6 +310,12 @@ nmap <leader>gp :Git push<CR>
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
 
+" Gist
+let g:gist_post_private = 1
+vmap <leader>gS :'<,'>Gist<CR>
+nmap <leader>gS :Gist<CR>
+nmap <leader>gSb :Gist -m<CR>
+
 " CtrlP {{{2
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
@@ -426,12 +443,26 @@ nmap <leader>vs vap<Leader>vs<CR>
 " Execute current paragraph and move on to the next one
 nmap <C-b> <leader>vs)<CR>
 
+" Execute entire buffer
+nmap <leader>vb ggVG
+"<Leader>vsgg
+
 " Vim-RSpec + Vimux
 let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
 map <Leader>rt :call RunCurrentSpecFile()<CR>
 map <Leader>rs :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-map <Leader>ra :call RunAllSpecs()<CR>
+map <Leader>rr :call RunLastSpec()<CR>
+map <Leader>rS :call RunAllSpecs()<CR>
+
+map <Leader>rc :Econtroller<CR>
+map <Leader>rm :Emodel<CR>
+map <Leader>rv :Eview<CR>
+
+" Rails related: view to controller, schema to model, ...
+map <Leader>re :R<CR>
+
+" Rails alternate: tests
+map <Leader>ra :A<CR>
 
 " Using Sneak to replace f
 "nmap f <Plug>Sneak_s
@@ -441,8 +472,20 @@ map <Leader>ra :call RunAllSpecs()<CR>
 "omap f <Plug>Sneak_s
 "omap F <Plug>Sneak_S
 
-" Gist
-let g:gist_post_private = 1
-vmap <leader>gs :'<,'>Gist
-nmap <leader>gs :Gist
-nmap <leader>gS :Gist -m
+" SuperTab
+let g:SuperTabDefaultCompletionType = 'context'
+autocmd FileType *
+  \ if &omnifunc != '' |
+  \   call SuperTabChain(&omnifunc, "<c-p>") |
+  \ endif
+
+" Search-and-replace tip
+" h/t: https://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+"
+" I search things usual way using /something
+" I hit cs, replace first match, and hit <Esc>
+" I hit n.n.n.n.n. reviewing and replacing all matches
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
