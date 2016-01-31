@@ -380,8 +380,8 @@ augroup writing
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() | 
-        \ call lexical#init() |
-        \ setl columns=86
+        \ call lexical#init()
+        "\ setl columns=86
         "\ :Goyo
 augroup END
 
