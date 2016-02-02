@@ -385,6 +385,11 @@ augroup writing
         "\ :Goyo
 augroup END
 
+augroup except_help
+  autocmd!
+  autocmd FileType help setl nospell
+augroup END
+
 set iskeyword+=_
 
 let g:pencil#wrapModeDefault = 'soft'
@@ -489,3 +494,5 @@ vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
     \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
 
+" CSV plugin
+let g:csv_autocmd_arrange = 1
