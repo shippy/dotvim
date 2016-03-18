@@ -87,7 +87,7 @@ set cursorline                      " Highlight current line
 set laststatus=2                    " Always show the statusline
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
 set backspace=indent,eol,start
-set colorcolumn=80
+"set colorcolumn=80
 set foldlevel=99    "File unfolded, always - use zM to close
 "set guitablabel=\[%N\]\ %t\ %M
 
@@ -303,7 +303,7 @@ set tags=~/tags;
 let g:user_emmet_leader_key = '<c-e>'
 
 "Fugitive Git {{{2
-nmap <leader>ga :Git add -A<CR>
+nmap <leader>ga :Git add %<CR>
 nmap <leader>gb :Gblame<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Git push<CR>
@@ -341,7 +341,8 @@ let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
 
 " NerdTreeTabs
-nmap <Leader>n <plug>NERDTreeTabsToggle<CR>
+nmap <Leader>nn <plug>NERDTreeTabsToggle<CR>
+nmap <Leader>nt :NERDTree<CR>
 let g:nerdtree_tabs_open_on_console_startup = 0
 
 " NerdCommenter (maps <C-/>)
@@ -431,12 +432,14 @@ nmap <leader>g :Goyo<CR>
 autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")<CR>
 autocmd FileType r nmap <leader>vr :call VimuxRunCommand("R")<CR>
 autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("irb")<CR>
+autocmd FileType matlab nmap <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")<CR>
 " TODO: RSpec / Rails Console / other testing?
 
 function! VimuxSlime()
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
 endfunction
+
 
 " If text is selected, save it in the v buffer and send that buffer it to tmux
 vmap <leader>vs "vy :call VimuxSlime()<CR>
@@ -449,8 +452,21 @@ nmap <leader>vs vap<Leader>vs<CR>
 nmap <C-b> <leader>vs)<CR>
 
 " Execute entire buffer
-nmap <leader>vb ggVG
+nmap <leader>vb ggVG<leader>vs
 "<Leader>vsgg
+
+" Specific MATLAB-debugging bindings (assuming an open Vimux pane)
+augroup matlab_debug
+  autocmd!
+  autocmd FileType matlab nmap <localleader>d :call VimuxSendText("dbstop in " . expand('%:t') . " at " . line(".") . "\n")<CR> |
+        \ nmap <localleader>s :call VimuxSendText("dbstep\n")<CR> |
+        \ nmap <localleader>c :call VimuxSendText("dbcont\n")<CR> |
+        \ nmap <localleader>r :call VimuxSendText("dbclear all\n")<CR> |
+        \ nmap <localleader>q :call VimuxSendText("dbquit\n")<CR> |
+        \ nmap <localleader>i :call VimuxSendText("dbstep in\n")<CR> |
+        \ nmap <localleader>o :call VimuxSendText("dbstep out\n")<CR> |
+        \ nmap <leader>vb :call VimuxSendText("addpath('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR>
+augroup END
 
 " Vim-RSpec + Vimux
 let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
