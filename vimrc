@@ -6,6 +6,11 @@
 " http://blog.sensible.io/2014/05/09/supercharge-your-vim-into-ide-with-ctags.html
 "
 " TODO: Consider https://github.com/AndrewRadev/splitjoin.vim
+"
+" TODO: https://github.com/dahu/vim-fanfingtastic, 
+" TODO for R: https://github.com/jalvesaq/Nvim-R,
+" https://github.com/vim-pandoc/vim-rmarkdown,
+" https://github.com/vim-pandoc/vim-pandoc
 
 " Pathogen to load plugins {{{1
 set nocompatible
@@ -215,6 +220,7 @@ nmap <Leader>" viwS"
 " Word count in LaTeX {{{2
 function! WC()
     let filename = expand("%")
+    " TODO: Escape `filename`
     let cmd = "detex " . filename . " | wc -w | xargs | tr -d '\n'"
     let result = system(cmd) . " words"
     echo result
@@ -295,7 +301,7 @@ augroup END
 "let g:EasyMotion_leader_key = '<Leader>'
 
 " EasyTag
-set tags=~/tags;
+set tags=./tags;
 "let g:easytags_dynamic_files = 2
 "let g:easytags_autorecurse = 1
 
@@ -303,7 +309,9 @@ set tags=~/tags;
 let g:user_emmet_leader_key = '<c-e>'
 
 "Fugitive Git {{{2
-nmap <leader>ga :Git add %<CR>
+nmap <leader>ga :Git add %<CR><CR>
+nmap <leader>gA :Git add -A<CR><CR>
+" Two <CR>s to avoid the confirmation dialog. TODO
 nmap <leader>gb :Gblame<CR>
 nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Git push<CR>
@@ -320,10 +328,11 @@ nmap <leader>gSb :Gist -m<CR>
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
-let g:ctrlp_jump_to_buffer = 2 " Jump to tab AND buffer if already open
-let g:ctrlp_split_window = 1 " <CR> = New Tab
+"let g:ctrlp_switch_buffer = 'Et' " Jump to tab AND buffer if already open
+"let g:ctrlp_split_window = 1 " <CR> = New Tab
 let g:ctrlp_show_hidden = 1
 nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>m :CtrlPMRUFiles<CR>
 nmap <leader>p :CtrlP<CR>
 
 " Gundo
@@ -429,29 +438,39 @@ let g:vim_markdown_folding_disabled=1
 nmap <leader>g :Goyo<CR>
 
 " Vimux (although don't forget about vim-ipython)
-autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")<CR>
-autocmd FileType r nmap <leader>vr :call VimuxRunCommand("R")<CR>
-autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("irb")<CR>
-autocmd FileType matlab nmap <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")<CR>
+autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")
+autocmd FileType r nmap <leader>vr :call VimuxRunCommand("R")
+autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("irb")
+autocmd FileType matlab nmap <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")
 " TODO: RSpec / Rails Console / other testing?
 
+" Prompt command
+map <leader>vp :VimuxPromptCommand
+
 function! VimuxSlime()
+  " Grab register v
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
 endfunction
 
+" Repeat last command
+nmap <leader>vl :call VimuxSlime()<CR>
 
 " If text is selected, save it in the v buffer and send that buffer it to tmux
 vmap <leader>vs "vy :call VimuxSlime()<CR>
-vmap <C-b> "vy :call VimuxSlime()<CR>
+" (Alternative mapping)
+vmap <C-b> <leader>vs<CR>
 
+" Select current line and send it to tmux
+nmap <leader>vv V<leader>vs<CR>
 " Select current paragraph and send it to tmux
 nmap <leader>vs vap<Leader>vs<CR>
 
 " Execute current paragraph and move on to the next one
 nmap <C-b> <leader>vs)<CR>
 
-" Execute entire buffer
+" Execute entire buffer (re-mapped for filetypes where a file can be passed
+" for execution)
 nmap <leader>vb ggVG<leader>vs
 "<Leader>vsgg
 
@@ -465,8 +484,9 @@ augroup matlab_debug
         \ nmap <localleader>q :call VimuxSendText("dbquit\n")<CR> |
         \ nmap <localleader>i :call VimuxSendText("dbstep in\n")<CR> |
         \ nmap <localleader>o :call VimuxSendText("dbstep out\n")<CR> |
-        \ nmap <leader>vb :call VimuxSendText("addpath('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR>
+        \ nmap <leader>vb :call VimuxSendText("cd('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR>
 augroup END
+" TODO: imap <something> to make three dots, then linebreak
 
 " Vim-RSpec + Vimux
 let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
