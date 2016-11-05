@@ -332,7 +332,7 @@ let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
 "let g:ctrlp_split_window = 1 " <CR> = New Tab
 let g:ctrlp_show_hidden = 1
 nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>m :CtrlPMRUFiles<CR>
+"nmap <leader>m :CtrlPMRUFiles<CR>
 nmap <leader>p :CtrlP<CR>
 
 " Gundo
@@ -440,7 +440,7 @@ nmap <leader>g :Goyo<CR>
 " Vimux (although don't forget about vim-ipython)
 autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")
 autocmd FileType r nmap <leader>vr :call VimuxRunCommand("R")
-autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("irb")
+autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("pry")
 autocmd FileType matlab nmap <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")
 " TODO: RSpec / Rails Console / other testing?
 
@@ -450,7 +450,7 @@ map <leader>vp :VimuxPromptCommand
 function! VimuxSlime()
   " Grab register v
   call VimuxSendText(@v)
-  call VimuxSendKeys("Enter")
+  "call VimuxSendKeys("Enter")
 endfunction
 
 " Repeat last command
@@ -532,3 +532,7 @@ omap s :normal vs<CR>
 
 " CSV plugin
 let g:csv_autocmd_arrange = 1
+
+" Make / vim-dispatch
+nmap <Leader>m :Make<CR>
+nmap <Leader>M :Make!<CR>
