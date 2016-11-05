@@ -105,11 +105,6 @@
 	url = https://github.com/honza/vim-snippets.git
 	ignore = untracked
   ignore = untracked
-[submodule "bundle/smartinput"]
-	path = bundle/smartinput
-	url = https://github.com/kana/vim-smartinput.git
-	ignore = untracked
-  ignore = untracked
 [submodule "bundle/vim-rails"]
 	path = bundle/vim-rails
 	url = https://github.com/tpope/vim-rails.git
@@ -276,3 +271,6 @@
 [submodule "bundle/vim-sleuth"]
 	path = bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth.git
+[submodule "bundle/auto-pairs"]
+	path = bundle/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs.git
