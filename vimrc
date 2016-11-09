@@ -123,7 +123,7 @@ augroup END
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
-    autocmd BufWritePost $MYVIMRC call Pl#ReloadColorscheme()
+    "autocmd BufWritePost $MYVIMRC call Pl#ReloadColorscheme()
 augroup END " }
 
 " Restore cursor position {{{2
@@ -314,9 +314,12 @@ nmap <leader>gA :Git add -A<CR><CR>
 " Two <CR>s to avoid the confirmation dialog. TODO
 nmap <leader>gb :Gblame<CR>
 nmap <leader>gc :Gcommit<CR>
-nmap <leader>gp :Git push<CR>
+nmap <leader>gp :Dispatch! git push<CR>
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
+
+" Merginal
+nmap <leader>gm :MerginalToggle<CR>
 
 " Gist
 let g:gist_post_private = 1
