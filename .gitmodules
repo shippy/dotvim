@@ -47,10 +47,6 @@
 	path = bundle/easy-motion
 	url = https://github.com/Lokaltog/vim-easymotion
   ignore = untracked
-[submodule "bundle/matchit"]
-	path = bundle/matchit
-	url = https://github.com/edsono/vim-matchit
-  ignore = untracked
 [submodule "bundle/coffeescript"]
 	path = bundle/coffeescript
 	url = https://github.com/kchmck/vim-coffee-script.git
@@ -274,3 +270,9 @@
 [submodule "bundle/auto-pairs"]
 	path = bundle/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "bundle/vim-merginal"]
+	path = bundle/vim-merginal
+	url = https://github.com/idanarye/vim-merginal.git
+[submodule "bundle/vim-matchit"]
+	path = bundle/vim-matchit
+	url = https://github.com/geoffharcourt/vim-matchit.git
