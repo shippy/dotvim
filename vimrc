@@ -51,6 +51,12 @@ set ffs=unix,dos,mac
 
 set modelines=1
 
+" No backup file (that's what git is for), no undo file (that's what yankring
+" is for)
+set nobackup
+set noswapfile
+set noundofile
+
 
 " Searching/Moving {{{2
 set gdefault                        " Add the g flag to search/replace by default
