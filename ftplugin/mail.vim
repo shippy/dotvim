@@ -17,9 +17,7 @@ endfunction
 
 augroup mail_filetype
     autocmd!
-    autocmd VimEnter /tmp/user* :call IsReply()
-    autocmd VimEnter /tmp/user* :exe 'startinsert'
+    call IsReply()
+    call pencil#init()
+    startinsert
 augroup END
-
-"call pencil#init()
-"let b:nerdtree_tabs_open_on_console_startup = 0

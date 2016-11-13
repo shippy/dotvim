@@ -1,4 +1,5 @@
-augroup AutoInsert
+augroup commit_autoinsert
     autocmd!
-    autocmd FileType gitcommit :exe 'startinsert'
+    au! BufRead,BufNewFile,BufEnter COMMIT_EDITMSG startinsert
+    "This excludes the file opened by :Gstatus
 augroup END
