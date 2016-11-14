@@ -368,3 +368,8 @@
   url = https://github.com/geoffharcourt/vim-matchit.git
   ignore = untracked
   branch = master
+[submodule "bundle/vim-eunuch"]
+  path = bundle/vim-eunuch
+  url = https://github.com/tpope/vim-eunuch.git
+  ignore = untracked
+  branch = master
