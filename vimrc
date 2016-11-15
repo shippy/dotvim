@@ -399,7 +399,8 @@ augroup writing
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() | 
-        \ call lexical#init()
+        \ call lexical#init() |
+	\ DittoOn
         "\ setl columns=86
         "\ :Goyo
 augroup END
@@ -463,6 +464,16 @@ endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+" Ditto
+nmap <leader>di <Plug>ToggleDitto      " Turn it on and off
+
+nmap =d <Plug>DittoNext                " Jump to the next word
+nmap -d <Plug>DittoPrev                " Jump to the previous word
+nmap +d <Plug>DittoGood                " Ignore the word under the cursor
+nmap _d <Plug>DittoBad                 " Stop ignoring the word under the cursor
+nmap ]d <Plug>DittoMore                " Show the next matches
+nmap [d <Plug>DittoLess                " Show the previous matches"]
 
 " Vimux (although don't forget about vim-ipython)
 autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")

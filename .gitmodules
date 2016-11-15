@@ -373,3 +373,8 @@
   url = https://github.com/tpope/vim-eunuch.git
   ignore = untracked
   branch = master
+[submodule "bundle/vim-ditto"]
+  path = bundle/vim-ditto
+  url = https://github.com/dbmrq/vim-ditto.git
+  ignore = untracked
+  branch = master
