@@ -12,7 +12,7 @@
 " https://github.com/vim-pandoc/vim-rmarkdown,
 " https://github.com/vim-pandoc/vim-pandoc
 
-" Pathogen to load plugins {{{1
+" Pathogen to load plugins
 set nocompatible
 
 " Exceptions for Mac
@@ -29,7 +29,7 @@ call pathogen#helptags()
 call pathogen#infect()
 
 
-" Preferences {{{1
+" Preferences
 filetype on
 filetype plugin on
 filetype indent on
@@ -58,7 +58,7 @@ set noswapfile
 set noundofile
 
 
-" Searching/Moving {{{2
+" Searching/Moving
 set gdefault                        " Add the g flag to search/replace by default
 set incsearch                       " Highlight dynamically as pattern is typed
 set hlsearch
@@ -76,7 +76,7 @@ if has('mouse')
 set mouse=a
 endif
 
-" Appearance {{{4
+" Appearance
 set number                          " Always show line numbers
 set ts=2 sts=2 sw=2									" Default tab stops
 set expandtab
@@ -102,7 +102,7 @@ set backspace=indent,eol,start
 set foldlevel=99    "File unfolded, always - use zM to close
 "set guitablabel=\[%N\]\ %t\ %M
 
-" Colors and Theme {{{2
+" Colors and Theme
 try
 	colorscheme ron
 catch
@@ -110,7 +110,7 @@ endtry
 
 set background=dark
 
-" Auto Commands {{{1
+" Auto Commands
 " Get autocompletion for filetypes
 set omnifunc=syntaxcomplete#Complete
 au FileType php setl ofu=phpcomplete#CompletePHP
@@ -125,14 +125,14 @@ augroup BgHighlight
     autocmd WinEnter * set cul
     autocmd WinLeave * set nocul
 augroup END
-" Auto source vimrc on save  {{{2
+" Auto source vimrc on save
 augroup reload_vimrc " {
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
     "autocmd BufWritePost $MYVIMRC call Pl#ReloadColorscheme()
 augroup END " }
 
-" Restore cursor position {{{2
+" Restore cursor position
 if has("autocmd")
 	autocmd BufReadPost *
 		\ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -140,7 +140,7 @@ if has("autocmd")
 		\ endif
 endif
 
-" Save on losing focus {{{2
+" Save on losing focus
 au FocusLost * :wa
 
 " Automatically leave insert mode after `updatetime` ms of inaction (Vimtips)
@@ -148,7 +148,7 @@ au CursorHoldI * stopinsert
 au InsertEnter * let updaterestore=&updatetime | set updatetime=10000
 au InsertLeave * let &updatetime=updaterestore
 
-" Mappings {{{1
+" Mappings
 inoremap jk <ESC>
 
 " Yank to end of line with Y
@@ -176,33 +176,33 @@ nmap gV `[v`]
 " Toggle Spell Checking 
 nmap <silent> <leader>s :set spell!<CR>
 
-" Bubble single lines {{{2
+" Bubble single lines
 nmap <C-Up> [e
 nmap <C-Down> ]e
 " Bubble multiple lines
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" Fucking F1 {{{2
+" Fucking F1
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" Fucking capital Q {{{2
+" Fucking capital Q
 nnoremap Q <nop>
 
-" Leader Mappings {{{1
-" Update vimrc -- v OR ev {{{3
+" Leader Mappings
+" Update vimrc -- v OR ev
 nmap <leader>v :tabedit $MYVIMRC<CR>
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
-" Update snipmate -- sc {{{2
+" Update snipmate -- sc
 nmap <leader>sc :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
 
 " Ack -- a {{{2
 nmap <Leader>a :Ack
 
-" Tab Editing {{{2
+" Tab Editing
 " Useful mappings for managing taps
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
@@ -212,7 +212,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 "map <C-t> :tabnext<CR>
 
-" Extras for now {{{2
+" Extras for now
 
 " Add quotes around word
 nmap <Leader>" viwS"
@@ -222,8 +222,8 @@ nmap <Leader>" viwS"
 "map <leader>O :set paste<cr>m`O<esc>``:set nopaste<cr>
 " NOTE: Replaced by Unimpaired ]<Space> and [<Space>
 
-" Functions {{{1
-" Word count in LaTeX {{{2
+" Functions
+" Word count in LaTeX
 function! WC()
     let filename = expand("%")
     " TODO: Escape `filename`
@@ -235,7 +235,7 @@ command! WC call WC()
 
 nmap <localleader>lw :WC<CR>
 
-" Remove trailing white space {{{2
+" Remove trailing white space
 function! Preserve(command)
 	" Preparation: save last search, and cursor position.
 	let _s=@/
@@ -261,7 +261,7 @@ function! QuickfixFilenames()
   return join(map(values(buffer_numbers), 'fnameescape(v:val)'))
 endfunction
 
-" Set tabstop, softtabstop and shiftwidth to the same value {{{2
+" Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
 function! Stab()
 	let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
@@ -298,12 +298,12 @@ augroup sourcesession
         \ endif
 augroup END
 
-" Plugins {{{1
+" Plugins
 
 " Powerline
 "call Pl#Theme#InsertSegment()
 
-" Easy-motion {{{2
+" Easy-motion
 "let g:EasyMotion_leader_key = '<Leader>'
 
 " EasyTag
@@ -311,10 +311,10 @@ set tags=./tags;
 "let g:easytags_dynamic_files = 2
 "let g:easytags_autorecurse = 1
 
-" Emmet {{{2
+" Emmet
 let g:user_emmet_leader_key = '<c-e>'
 
-"Fugitive Git {{{2
+"Fugitive Git
 nmap <leader>ga :Git add %<CR><CR>
 nmap <leader>gA :Git add -A<CR><CR>
 " Two <CR>s to avoid the confirmation dialog. TODO
@@ -333,7 +333,7 @@ vmap <leader>gS :'<,'>Gist<CR>
 nmap <leader>gS :Gist<CR>
 nmap <leader>gSb :Gist -m<CR>
 
-" CtrlP {{{2
+" CtrlP
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
@@ -348,13 +348,10 @@ nmap <leader>p :CtrlP<CR>
 nmap <leader>g :GundoToggle<CR>
 let g:gundo_right = 1
 
-" MultipleCursors {{{2
-let g:multi_cursor_quit_key='<C-c>'
-
-" Markdown {{{2
+" Markdown 
 let g:vim_markdown_initial_foldlevel=1
 
-" NerdTree {{{2
+" NerdTree
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
 
@@ -369,7 +366,7 @@ map <C-_> <Plug>NERDCommenterToggle
 " Rainbow Parens
 "nmap <leader>r :RainbowParentheses!!<CR>
 
-" Syntastic {{{2
+" Syntastic
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
