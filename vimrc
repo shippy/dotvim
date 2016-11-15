@@ -366,13 +366,8 @@ let g:nerdtree_tabs_open_on_console_startup = 0
 " NerdCommenter (maps <C-/>)
 map <C-_> <Plug>NERDCommenterToggle 
 
-" Rainbow Parens {{{2
-"nmap <leader>r :RainbowParenthesesToggle<CR>
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
+" Rainbow Parens
+"nmap <leader>r :RainbowParentheses!!<CR>
 
 " Syntastic {{{2
 let g:syntastic_auto_loc_list = 0
