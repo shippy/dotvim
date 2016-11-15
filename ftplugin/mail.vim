@@ -1,7 +1,5 @@
 " as per http://www.mdlerch.com/emailing-mutt-and-vim-advanced-config.html
 " TODO: Implement http://tlattimore.com/blog/distraction-free-writing-in-vim/
-"setl tw=72
-"setl fo=aw
 
 " Escape out of Goyo and file without any permanent after-hooks
 nnoremap <buffer> fq :qa!<CR>
@@ -33,9 +31,9 @@ endfunction
 
 augroup mail_filetype
     autocmd!
-    call pencil#init({'wrap': 'soft'})
     call FormatReplyAndInsert()
     :Goyo
+    call pencil#init({'wrap': 'soft'})
 augroup END
 
 "Note: Shelving the use of `par`, since it kills single-linebreak-separated

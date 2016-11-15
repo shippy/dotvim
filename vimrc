@@ -395,7 +395,7 @@ autocmd FileType javascript,css,php inoremap <silent> <Leader>; <c-o>:call cosco
 " Using vim as a writer / disable
 augroup writing
   autocmd!
-  autocmd FileType markdown,mkd,tex,text setl spell spl=en |
+  autocmd FileType markdown,mkd,tex,text,mail setl spell spl=en |
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() | 
@@ -561,5 +561,5 @@ omap s :normal vs<CR>
 let g:csv_autocmd_arrange = 1
 
 " Make / vim-dispatch
-nmap <Leader>m :Make<CR>
-nmap <Leader>M :Make!<CR>
+nmap <Leader>m :Dispatch<CR>
+nmap <Leader>M :Dispatch!<CR>
