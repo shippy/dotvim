@@ -8,16 +8,6 @@
   url = https://github.com/scrooloose/nerdtree.git
   ignore = untracked
   branch = master
-[submodule "bundle/solarized"]
-  path = bundle/solarized
-  url = https://github.com/altercation/vim-colors-solarized.git
-  ignore = untracked
-  branch = master
-[submodule "bundle/surround"]
-  path = bundle/surround
-  url = https://github.com/tpope/vim-surround.git
-  ignore = untracked
-  branch = master
 [submodule "bundle/badwolf"]
   path = bundle/badwolf
   url = https://github.com/sjl/badwolf.git
@@ -106,16 +96,6 @@
 [submodule "bundle/markdown-mode"]
   path = bundle/markdown-mode
   url = https://github.com/plasticboy/vim-markdown.git
-  ignore = untracked
-  branch = master
-[submodule "bundle/mustache"]
-  path = bundle/mustache
-  url = git://github.com/mustache/vim-mustache-handlebars.git
-  ignore = untracked
-  branch = master
-[submodule "bundle/multiple-cursors"]
-  path = bundle/multiple-cursors
-  url = https://github.com/terryma/vim-multiple-cursors.git
   ignore = untracked
   branch = master
 [submodule "bundle/vim-snippets"]
@@ -356,11 +336,6 @@
 [submodule "bundle/vim-merginal"]
   path = bundle/vim-merginal
   url = https://github.com/idanarye/vim-merginal.git
-  ignore = untracked
-  branch = master
-[submodule "bundle/vim-matchit"]
-  path = bundle/vim-matchit
-  url = https://github.com/geoffharcourt/vim-matchit.git
   ignore = untracked
   branch = master
 [submodule "bundle/vim-eunuch"]
