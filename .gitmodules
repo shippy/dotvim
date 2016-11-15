@@ -168,11 +168,6 @@
   url = git://github.com/tpope/vim-repeat.git
   ignore = untracked
   branch = master
-[submodule "bundle/vim-nerdtree-tabs"]
-  path = bundle/vim-nerdtree-tabs
-  url = https://github.com/jistr/vim-nerdtree-tabs.git
-  ignore = untracked
-  branch = master
 [submodule "bundle/php.vim"]
   path = bundle/php.vim
   url = https://github.com/StanAngeloff/php.vim.git

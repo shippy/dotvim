@@ -363,11 +363,7 @@ let g:vim_markdown_initial_foldlevel=1
 " NerdTree
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
-
-" NerdTreeTabs
-nmap <Leader>nn <plug>NERDTreeTabsToggle<CR>
-nmap <Leader>nt :NERDTree<CR>
-let g:nerdtree_tabs_open_on_console_startup = 0
+nmap <Leader>n :NERDTreeToggle<CR>
 
 " NerdCommenter (maps <C-/>)
 map <C-_> <Plug>NERDCommenterToggle 
