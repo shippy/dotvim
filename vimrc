@@ -199,8 +199,11 @@ nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " Update snipmate -- sc
 nmap <leader>sc :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
 
-" Ack -- a {{{2
-nmap <Leader>a :Ack
+" Ack -- a
+nmap <Leader>a :Ack 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " Tab Editing
 " Useful mappings for managing taps
@@ -337,12 +340,18 @@ nmap <leader>gSb :Gist -m<CR>
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 "let g:ctrlp_switch_buffer = 'Et' " Jump to tab AND buffer if already open
 "let g:ctrlp_split_window = 1 " <CR> = New Tab
-let g:ctrlp_show_hidden = 1
+
 nmap <leader>b :CtrlPBuffer<CR>
+nnoremap <C-t> :CtrlP<CR>
 "nmap <leader>m :CtrlPMRUFiles<CR>
-nmap <leader>p :CtrlP<CR>
 
 " Gundo
 nmap <leader>g :GundoToggle<CR>
