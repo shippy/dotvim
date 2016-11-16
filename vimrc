@@ -12,17 +12,21 @@
 " https://github.com/vim-pandoc/vim-rmarkdown,
 " https://github.com/vim-pandoc/vim-pandoc
 
-" Pathogen to load plugins
 set nocompatible
 
-" Exceptions for Mac
-"let g:pathogen_disabled = []
-"if has("unix")
-  "let s:uname = system("uname -s")
-  "if s:uname == "Darwin\n"
-    "Remove plugins from Apple systems
-  "endif
-"endif
+" Pathogen 
+let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython', 
+			  \'vim-rails', 'vim-rspec', 'vim-vroom']
+"call add(g:pathogen_disabled, 'emmet-vim')
+
+" Exceptions per system
+if has("macunix")
+  "Remove plugins from OSX
+elseif has("unix") & !has("macunix")
+  "Remove plugins from non-OSX UNIX
+elseif has("win32")
+  "Remove plugins from (god forgive me) Windows
+endif
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
