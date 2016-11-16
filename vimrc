@@ -22,7 +22,7 @@ let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython',
 " Exceptions per system
 if has("macunix")
   "Remove plugins from OSX
-elseif has("unix") & !has("macunix")
+elseif has("unix") && !has("macunix")
   "Remove plugins from non-OSX UNIX
 elseif has("win32")
   "Remove plugins from (god forgive me) Windows
