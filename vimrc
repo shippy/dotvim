@@ -326,6 +326,8 @@ nmap <leader>gc :Gcommit<CR>
 nmap <leader>gp :Dispatch! git push<CR>
 nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
+" Review staged changes (credit: http://stackoverflow.com/a/29454450/2114580)
+nnoremap <leader>gr :Git! diff --staged<CR>
 
 " Merginal
 nmap <leader>gm :MerginalToggle<CR>
