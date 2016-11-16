@@ -289,6 +289,10 @@ let g:airline_symbols.whitespace = 'Ξ'
 let g:csv_autocmd_arrange = 1
 
 " CtrlP
+let g:ctrlp_map = '<c-f>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+nnoremap <C-t> :CtrlPTag<CR>
+
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
@@ -298,12 +302,6 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-"let g:ctrlp_switch_buffer = 'Et' " Jump to tab AND buffer if already open
-"let g:ctrlp_split_window = 1 " <CR> = New Tab
-
-nmap <leader>b :CtrlPBuffer<CR>
-nnoremap <C-t> :CtrlP<CR>
-"nmap <leader>m :CtrlPMRUFiles<CR>
 
 " Ditto
 nmap <leader>di <Plug>ToggleDitto      " Turn it on and off
