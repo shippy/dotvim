@@ -73,11 +73,11 @@ set iskeyword+=_
 
 nnoremap j gj
 nnoremap k gk
-set so=7
 
 " #Appearance
 set number " Always show line numbers
-set ts=2 sts=2 sw=2 " Default tab stops
+set scrolloff=7
+set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set expandtab
 set smarttab
 set autoindent
@@ -86,7 +86,7 @@ set showcmd    " Shows incomplete command
 set noerrorbells
 set novisualbell
 set t_vb=
-set tm=500
+set timeoutlen=500
 set splitbelow " New window goes below
 set splitright " New windows goes right
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
@@ -365,6 +365,7 @@ nmap <leader>gm :MerginalToggle<CR>
 " NerdTree
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
 nmap <Leader>n :NERDTreeToggle<CR>
 
 " NerdCommenter (maps <C-/>)
