@@ -353,3 +353,8 @@
   url = https://github.com/vim-airline/vim-airline-themes.git
   ignore = untracked
   branch = master
+[submodule "bundle/vim-dokumentary"]
+	path = bundle/vim-dokumentary
+	url = https://github.com/gastonsimone/vim-dokumentary.git
+  ignore = untracked
+  branch = master
