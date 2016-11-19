@@ -292,12 +292,14 @@ let g:csv_autocmd_arrange = 1
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 nnoremap <C-t> :CtrlPTag<CR>
+nnoremap <Leader>f :CtrlPMixed<CR>
+nnoremap <C-[> :pop<CR>
 
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_clear_cache_on_exit = 0
+"let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
