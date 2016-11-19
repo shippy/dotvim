@@ -55,9 +55,10 @@ set nobackup
 set noswapfile
 set noundofile
 
-if has('mouse')
-  set mouse=a
-endif
+"if has('mouse')
+  "set ttymouse=xterm2
+  "set mouse=a
+"endif
 
 " #Searching/Moving
 set gdefault   " Add the g flag to search/replace by default
