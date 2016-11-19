@@ -1,8 +1,7 @@
-" as per http://www.mdlerch.com/emailing-mutt-and-vim-advanced-config.html
-" TODO: Implement http://tlattimore.com/blog/distraction-free-writing-in-vim/
+" Inspired by http://www.mdlerch.com/emailing-mutt-and-vim-advanced-config.html
 
 " Escape out of Goyo and file without any permanent after-hooks
-nnoremap <buffer> fq :qa!<CR>
+nnoremap <buffer> fq :Goyo!<CR>:qa!<CR>
 
 " Is this e-mail a response (as opposed to an existing draft)?
 function IsReply()
