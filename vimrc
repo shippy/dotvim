@@ -294,7 +294,9 @@ let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 nnoremap <C-t> :CtrlPTag<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
-nnoremap <C-[> :pop<CR>
+"nnoremap <C-[> :pop<CR>
+"This map causes arrows to activate OA,OB,OC,OD -- unclear why? Perhaps
+"because it's ^[?
 
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
@@ -316,6 +318,8 @@ nmap _d <Plug>DittoBad                 " Stop ignoring the word under the cursor
 nmap ]d <Plug>DittoMore                " Show the next matches
 nmap [d <Plug>DittoLess                " Show the previous matches"]
 
+" Dokumentary
+let g:dokumentary_docprgs = {'ruby': 'ri --no-pager {0} | col -b'}
 " Easy-motion
 "let g:EasyMotion_leader_key = '<Leader>'
 
