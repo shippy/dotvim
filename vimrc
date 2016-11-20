@@ -167,12 +167,18 @@ augroup END
 augroup except_help
   autocmd!
   autocmd FileType help setl nospell
+  autocmd FileType help nnoremap <buffer> q :q<CR>
 augroup END
 
 " #Mappings
 inoremap jk <ESC>
 
 " Quick-saving/exiting shortcuts
+" TODO: Sane work with buffers could be nice, especially with airline's
+" buffer list. Set it up perhaps so that `fq` kills the buffer (:bd!), and
+" closes vim if this is the last buffer open? (Alternatively, I can just keep
+" doing what I do -- CtrlP/fzf to the other buffer I want, & get it in split
+" if need be.)
 nmap <leader>w :w!<cr>
 nmap fw :w!<cr>
 command! W w !sudo tee % > /dev/null
@@ -362,6 +368,9 @@ let g:gundo_right = 1
 
 " Markdown 
 let g:vim_markdown_initial_foldlevel=1
+let g:vim_markdown_conceal=1
+" FIXME: in iTerm2 / tmux, vim doesn't delete the *space* that MD link 
+" URLs have, even though it hides them from view? To investigate further
 
 " Make / vim-dispatch
 nmap <Leader>m :Dispatch<CR>
