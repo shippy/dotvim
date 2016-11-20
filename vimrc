@@ -187,6 +187,10 @@ nmap <leader>st <C-w>T
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
+" Open split to navigate in current file's directory
+nmap <C-w>S :Sexplore<CR>
+nmap <C-w>V :Vexplore!<CR>
+
 " Remove F1 and Q mappings
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -367,10 +371,13 @@ nmap <Leader>M :Dispatch!<CR>
 nmap <leader>gm :MerginalToggle<CR>
 
 " NerdTree
+" TODO: Replace with netrw and vim-vinegar?
+let loaded_nerd_tree=0
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
-nmap <Leader>n :NERDTreeToggle<CR>
+"nmap <Leader>n :NERDTreeToggle<CR>
+nmap <Leader>n :20Lex<CR>
 
 " NerdCommenter (maps <C-/>)
 map <C-_> <Plug>NERDCommenterToggle 
