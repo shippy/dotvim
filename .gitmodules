@@ -378,3 +378,8 @@
   url = https://github.com/tpope/vim-dotenv.git
   ignore = untracked
   branch = master
+[submodule "bundle/vim-commentary"]
+  path = bundle/vim-commentary
+  url = https://github.com/tpope/vim-commentary.git
+  ignore = untracked
+  branch = master
