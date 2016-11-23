@@ -363,3 +363,18 @@
   url = https://github.com/tpope/vim-vinegar.git
   ignore = untracked
   branch = master
+[submodule "bundle/vim-sensible"]
+  path = bundle/vim-sensible
+  url = https://github.com/tpope/vim-sensible.git
+  ignore = untracked
+  branch = master
+[submodule "bundle/vim-rsi"]
+  path = bundle/vim-rsi
+  url = https://github.com/tpope/vim-rsi.git
+  ignore = untracked
+  branch = master
+[submodule "bundle/vim-dotenv"]
+  path = bundle/vim-dotenv
+  url = https://github.com/tpope/vim-dotenv.git
+  ignore = untracked
+  branch = master
