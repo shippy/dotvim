@@ -173,11 +173,6 @@
   url = https://github.com/justinmk/vim-sneak.git
   ignore = untracked
   branch = master
-[submodule "bundle/AutoTag"]
-  path = bundle/AutoTag
-  url = https://github.com/vim-scripts/AutoTag
-  ignore = untracked
-  branch = master
 [submodule "bundle/Vimball"]
   path = bundle/Vimball
   url = https://github.com/vim-scripts/Vimball.git
@@ -226,11 +221,6 @@
 [submodule "bundle/vim-pencil"]
   path = bundle/vim-pencil
   url = https://github.com/reedes/vim-pencil.git
-  ignore = untracked
-  branch = master
-[submodule "bundle/spss-syntax-highlighting-file"]
-  path = bundle/spss-syntax-highlighting-file
-  url = https://github.com/vim-scripts/spss-syntax-highlighting-file.git
   ignore = untracked
   branch = master
 [submodule "bundle/goyo.vim"]
