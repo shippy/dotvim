@@ -368,3 +368,21 @@
   url = https://github.com/justinmk/vim-dirvish.git
   ignore = untracked
   branch = master
+[submodule "bundle/swapit"]
+	path = bundle/swapit
+	url = https://github.com/mjbrownie/swapit.git
+[submodule "bundle/clever-f.vim"]
+	path = bundle/clever-f.vim
+	url = https://github.com/rhysd/clever-f.vim
+[submodule "bundle/targets.vim"]
+	path = bundle/targets.vim
+	url = https://github.com/wellle/targets.vim
+[submodule "bundle/splitjoin.vim"]
+	path = bundle/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "bundle/vim-lion"]
+	path = bundle/vim-lion
+	url = https://github.com/tommcdo/vim-lion.git
+[submodule "bundle/VimCompletesMe"]
+	path = bundle/VimCompletesMe
+	url = https://github.com/ajh17/VimCompletesMe.git

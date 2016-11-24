@@ -16,7 +16,7 @@ set nocompatible
 
 " Pathogen
 let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython',
-      \'vim-rails', 'vim-rspec', 'vim-vroom', 'AutoTag']
+      \'vim-rails', 'vim-rspec', 'vim-vroom', 'tabular', 'SuperTab']
 "call add(g:pathogen_disabled, 'emmet-vim')
 
 " Exceptions per system
@@ -469,11 +469,11 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:sneak#streak = 1
 
 " SuperTab
-let g:SuperTabDefaultCompletionType = 'context'
-autocmd FileType *
-      \ if &omnifunc != '' |
-      \   call SuperTabChain(&omnifunc, "<c-p>") |
-      \ endif
+"let g:SuperTabDefaultCompletionType = 'context'
+"autocmd FileType *
+      "\ if &omnifunc != '' |
+      "\   call SuperTabChain(&omnifunc, "<c-p>") |
+      "\ endif
 
 " #Unimpaired
 " Add a line without changing position or leaving mode: ]<Space> and [<Space>
