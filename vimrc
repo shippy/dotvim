@@ -368,7 +368,7 @@ nmap <leader>gS :Gist<CR>
 nmap <leader>gSb :Gist -m<CR>
 
 " Gundo
-nmap <leader>g :GundoToggle<CR>
+nmap <leader>u :GundoToggle<CR>
 let g:gundo_right = 1
 
 " Markdown
