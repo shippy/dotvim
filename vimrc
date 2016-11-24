@@ -7,15 +7,15 @@
 "
 " TODO: Consider https://github.com/AndrewRadev/splitjoin.vim
 "
-" TODO: https://github.com/dahu/vim-fanfingtastic, 
+" TODO: https://github.com/dahu/vim-fanfingtastic,
 " TODO for R: https://github.com/jalvesaq/Nvim-R,
 " https://github.com/vim-pandoc/vim-rmarkdown,
 " https://github.com/vim-pandoc/vim-pandoc
 
 set nocompatible
 
-" Pathogen 
-let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython', 
+" Pathogen
+let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython',
       \'vim-rails', 'vim-rspec', 'vim-vroom', 'AutoTag']
 "call add(g:pathogen_disabled, 'emmet-vim')
 
@@ -123,10 +123,13 @@ augroup BgHighlight
 augroup END
 
 " Auto source vimrc on save
-augroup reload_vimrc 
+augroup reload_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
+
+" Remove whitespace on save (cribbed from @marcgg)
+autocmd BufWritePre * :%s/\s\+$//e
 
 " Restore cursor position
 if has("autocmd")
@@ -159,7 +162,7 @@ augroup writing
   autocmd FileType markdown,mkd,tex,text,mail setl spell spl=en |
         \ call textobj#sentence#init() |
         \ call pencil#init() |
-        \ call litecorrect#init() | 
+        \ call litecorrect#init() |
         \ call lexical#init() |
         \ DittoOn
 augroup END
@@ -172,6 +175,8 @@ augroup END
 
 " #Mappings
 inoremap jk <ESC>
+" Cribbed from @marcgg -- quick switch to previous file
+nnoremap <Leader><Leader> :e#<CR>
 
 " Quick-saving/exiting shortcuts
 " TODO: Sane work with buffers could be nice, especially with airline's
@@ -185,17 +190,13 @@ command! W w !sudo tee % > /dev/null
 nmap fq :q!<CR>
 
 " Yank to end of line with Y
-nnoremap Y y$	
+nnoremap Y y$
 
 " Explode split to tab
 nmap <leader>st <C-w>T
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
-
-" Open split to navigate in current file's directory
-nmap <C-w>S :Sexplore<CR>
-nmap <C-w>V :Vexplore!<CR>
 
 " Remove F1 and Q mappings
 inoremap <F1> <ESC>
@@ -275,7 +276,7 @@ endfunction
 
 " #Plugin settings and mappings
 " Ack
-nmap <Leader>a :Ack 
+nmap <Leader>a :Ack
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
@@ -317,6 +318,14 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+
+" Dirvish
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
+nnoremap <C-w>S :split<CR>:Dirvish<CR>
+nnoremap <C-w>V :vsplit<CR>:Dirvish<CR>
+nnoremap <Leader>n :20vsplit<CR>:Dirvish<CR>
+" TODO: Figure out how to get close the last one when I press `p` for previous
 
 " Ditto
 nmap <leader>di <Plug>ToggleDitto      " Turn it on and off
@@ -366,10 +375,10 @@ nmap <leader>gSb :Gist -m<CR>
 nmap <leader>g :GundoToggle<CR>
 let g:gundo_right = 1
 
-" Markdown 
+" Markdown
 let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_conceal=1
-" FIXME: in iTerm2 / tmux, vim doesn't delete the *space* that MD link 
+" FIXME: in iTerm2 / tmux, vim doesn't delete the *space* that MD link
 " URLs have, even though it hides them from view? To investigate further
 
 " Make / vim-dispatch
@@ -379,17 +388,8 @@ nmap <Leader>M :Dispatch!<CR>
 " Merginal
 nmap <leader>gm :MerginalToggle<CR>
 
-" NerdTree
-" TODO: Replace with netrw and vim-vinegar?
-let loaded_nerd_tree=0
-let g:NERDTreeWinPos = "right"
-let NERDTreeShowHidden=1
-let NERDTreeQuitOnOpen=1
-"nmap <Leader>n :NERDTreeToggle<CR>
-nmap <Leader>n :20Lex<CR>
-
 " NerdCommenter (maps <C-/>)
-map <C-_> <Plug>NERDCommenterToggle 
+map <C-_> <Plug>NERDCommenterToggle
 
 " Pencil
 let g:pencil#wrapModeDefault = 'soft'
