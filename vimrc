@@ -5,8 +5,6 @@
 " http://benoithamelin.tumblr.com/post/15101202004/using-vim-exuberant-ctags-easy-source-navigation
 " http://blog.sensible.io/2014/05/09/supercharge-your-vim-into-ide-with-ctags.html
 "
-" TODO: Consider https://github.com/AndrewRadev/splitjoin.vim
-"
 " TODO: https://github.com/dahu/vim-fanfingtastic,
 " TODO for R: https://github.com/jalvesaq/Nvim-R,
 " https://github.com/vim-pandoc/vim-rmarkdown,
@@ -24,6 +22,8 @@ if has("macunix")
   "Remove plugins from OSX
 elseif has("unix") && !has("macunix")
   "Remove plugins from non-OSX UNIX
+elseif has("win32unix")
+  "Remove plugins from cygwin/babun
 elseif has("win32")
   "Remove plugins from (god forgive me) Windows
 endif
@@ -38,7 +38,6 @@ filetype plugin on
 filetype indent on
 syntax on
 let mapleader =","    " Set global mapleader
-set autoindent
 set smartindent
 set hidden            " Useful for auto setting hidden buffers
 set nostartofline     " Don't reset cursor to start of line when moving around
@@ -46,7 +45,6 @@ set whichwrap+=<,>,h,l,[,] " Wrap over end-of-line to next " TODO: Disable h & l
 set ttyfast
 
 set ffs=unix,dos,mac
-set encoding=utf-8
 
 set modelines=1
 
@@ -62,7 +60,6 @@ set noundofile
 
 " #Searching/Moving
 set gdefault   " Add the g flag to search/replace by default
-set incsearch  " Highlight dynamically as pattern is typed
 set hlsearch
 set ignorecase " Ignore case when searching
 set smartcase  " Try and be smart about cases
@@ -79,7 +76,6 @@ set number " Always show line numbers
 set scrolloff=7
 set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set expandtab
-set smarttab
 set autoindent
 set smartindent
 set showcmd    " Shows incomplete command
@@ -91,12 +87,9 @@ set splitbelow " New window goes below
 set splitright " New windows goes right
 set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*
-set wildmenu                        " Enhance command-line completion
 set wildmode=longest:full,full
 set cursorline                      " Highlight current line
-set laststatus=2                    " Always show the statusline
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
-set backspace=indent,eol,start
 set foldlevel=99    "File unfolded, always - use zM to close
 
 try
