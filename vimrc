@@ -9,12 +9,15 @@
 " TODO for R: https://github.com/jalvesaq/Nvim-R,
 " https://github.com/vim-pandoc/vim-rmarkdown,
 " https://github.com/vim-pandoc/vim-pandoc
+"
+" TODO: Reconcile VimCompletesMe and SnipMate (VCM steals Tab, which SuperTab
+" prevents)
 
 set nocompatible
 
 " Pathogen
 let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython',
-      \'vim-rails', 'vim-rspec', 'vim-vroom', 'tabular', 'SuperTab']
+      \'vim-rails', 'vim-rspec', 'vim-vroom', 'tabular', 'SuperTab', 'nerdcommenter']
 "call add(g:pathogen_disabled, 'emmet-vim')
 
 " Exceptions per system
@@ -381,8 +384,9 @@ nmap <Leader>M :Dispatch!<CR>
 " Merginal
 nmap <leader>gm :MerginalToggle<CR>
 
-" NerdCommenter (maps <C-/>)
-map <C-_> <Plug>NERDCommenterToggle
+" NerdCommenter / Commentary (maps <C-/>)
+"map <C-_> <Plug>NERDCommenterToggle
+map <C-_> :Commentary<CR>
 
 " Pencil
 let g:pencil#wrapModeDefault = 'soft'
