@@ -12,6 +12,9 @@
 "
 " TODO: Reconcile VimCompletesMe and SnipMate (VCM steals Tab, which SuperTab
 " prevents)
+"
+" TODO: Implement <space> as leader, <CR> as G, <BS> as gg,
+" http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 
 set nocompatible
 
