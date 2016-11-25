@@ -369,20 +369,37 @@
   ignore = untracked
   branch = master
 [submodule "bundle/swapit"]
-	path = bundle/swapit
-	url = https://github.com/mjbrownie/swapit.git
+  path = bundle/swapit
+  url = https://github.com/mjbrownie/swapit.git
+  ignore = untracked
+  branch = master
 [submodule "bundle/clever-f.vim"]
-	path = bundle/clever-f.vim
-	url = https://github.com/rhysd/clever-f.vim
+  path = bundle/clever-f.vim
+  url = https://github.com/rhysd/clever-f.vim
+  ignore = untracked
+  branch = master
 [submodule "bundle/targets.vim"]
-	path = bundle/targets.vim
-	url = https://github.com/wellle/targets.vim
+  path = bundle/targets.vim
+  url = https://github.com/wellle/targets.vim
+  ignore = untracked
+  branch = master
 [submodule "bundle/splitjoin.vim"]
-	path = bundle/splitjoin.vim
-	url = https://github.com/AndrewRadev/splitjoin.vim.git
+  path = bundle/splitjoin.vim
+  url = https://github.com/AndrewRadev/splitjoin.vim.git
+  ignore = untracked
+  branch = master
 [submodule "bundle/vim-lion"]
-	path = bundle/vim-lion
-	url = https://github.com/tommcdo/vim-lion.git
+  path = bundle/vim-lion
+  url = https://github.com/tommcdo/vim-lion.git
+  ignore = untracked
+  branch = master
 [submodule "bundle/VimCompletesMe"]
-	path = bundle/VimCompletesMe
-	url = https://github.com/ajh17/VimCompletesMe.git
+  path = bundle/VimCompletesMe
+  url = https://github.com/ajh17/VimCompletesMe.git
+  ignore = untracked
+  branch = master
+[submodule "bundle/fzf.vim"]
+  path = bundle/fzf.vim
+  url = https://github.com/junegunn/fzf.vim.git
+  ignore = untracked
+  branch = master
