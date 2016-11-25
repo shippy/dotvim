@@ -10,12 +10,9 @@
 " https://github.com/vim-pandoc/vim-rmarkdown,
 " https://github.com/vim-pandoc/vim-pandoc
 "
-" TODO: Reconcile VimCompletesMe and SnipMate (VCM steals Tab, which SuperTab
-" prevents)
-"
-" TODO: Implement <space> as leader, <CR> as G, <BS> as gg,
-" http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
-
+" TODO: This structuring of plugin settings - each in a file, the files
+" programmatically sourced from folder - is appealing
+" https://github.com/skwp/dotfiles/blob/master/vim/settings.vim
 set nocompatible
 
 " Pathogen
@@ -43,11 +40,10 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
-let mapleader =","    " Set global mapleader
 set smartindent
 set hidden            " Useful for auto setting hidden buffers
 set nostartofline     " Don't reset cursor to start of line when moving around
-set whichwrap+=<,>,h,l,[,] " Wrap over end-of-line to next " TODO: Disable h & l if trouble arises
+set whichwrap+=<,>,h,l,[,] " Wrap over end-of-line to next
 set ttyfast
 
 set ffs=unix,dos,mac
@@ -77,6 +73,9 @@ set iskeyword+=_
 nnoremap j gj
 nnoremap k gk
 
+nnoremap <CR> G
+nnoremap <BS> gg
+
 " #Appearance
 set number " Always show line numbers
 set scrolloff=7
@@ -84,6 +83,9 @@ set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set expandtab
 set autoindent
 set smartindent
+if has("linebreak")
+  set breakindent
+endif
 set showcmd    " Shows incomplete command
 set noerrorbells
 set novisualbell
@@ -155,7 +157,7 @@ augroup END
 " Using vim as a writer / disable
 augroup writing
   autocmd!
-  autocmd FileType markdown,mkd,tex,text,mail setl spell spl=en |
+  autocmd FileType markdown,mkd,tex,mail setl spell spl=en |
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() |
@@ -170,7 +172,8 @@ augroup except_help
 augroup END
 
 " #Mappings
-inoremap jk <ESC>
+let mapleader ="\<Space>"
+inoremap jj <ESC>
 " Cribbed from @marcgg -- quick switch to previous file
 nnoremap <Leader><Leader> :e#<CR>
 
@@ -181,15 +184,13 @@ nnoremap <Leader><Leader> :e#<CR>
 " doing what I do -- CtrlP/fzf to the other buffer I want, & get it in split
 " if need be.)
 nmap <leader>w :w!<cr>
+nmap <leader>x :x<cr>
 nmap fw :w!<cr>
 command! W w !sudo tee % > /dev/null
 nmap fq :q!<CR>
 
 " Yank to end of line with Y
 nnoremap Y y$
-
-" Explode split to tab
-nmap <leader>st <C-w>T
 
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
@@ -200,9 +201,11 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 nnoremap Q <nop>
 
-" Update vimrc
-nmap <leader>v :tabedit $MYVIMRC<CR>
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" Edit various important files
+nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+nnoremap <leader>ez :tabedit ~/.zshrc<cr>
+nnoremap <leader>es :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
+nnoremap <leader>et :tabedit ~/.tmux/tmux.conf
 
 " #Functions
 " Word count in LaTeX
@@ -274,7 +277,7 @@ endfunction
 
 " #Plugin settings and mappings
 " Ack
-nmap <Leader>a :Ack
+nmap <Leader>a :Ack<space>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
@@ -302,6 +305,7 @@ let g:csv_autocmd_arrange = 1
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 nnoremap <C-t> :CtrlPTag<CR>
+nnoremap <Leader>t :CtrlPTag<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
 "nnoremap <C-[> :pop<CR>
 "This map causes arrows to activate OA,OB,OC,OD -- unclear why? Perhaps
@@ -311,7 +315,7 @@ let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
 let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -322,6 +326,8 @@ let g:loaded_netrw = 1
 let g:loaded_netrwPlugin = 1
 nnoremap <C-w>S :split<CR>:Dirvish<CR>
 nnoremap <C-w>V :vsplit<CR>:Dirvish<CR>
+nnoremap <Leader>S :split<CR>:Dirvish<CR>
+nnoremap <Leader>V :vsplit<CR>:Dirvish<CR>
 nnoremap <Leader>n :20vsplit<CR>:Dirvish<CR>
 " TODO: Figure out how to get close the last one when I press `p` for previous
 
@@ -370,6 +376,7 @@ nmap <leader>gS :Gist<CR>
 nmap <leader>gSb :Gist -m<CR>
 
 " Gundo
+" TODO: Crouton vim is compiled without sufficient Python version
 nmap <leader>u :GundoToggle<CR>
 let g:gundo_right = 1
 
@@ -423,8 +430,9 @@ let g:tex_conceal='b'
 " Rainbow Parens
 "nmap <leader>r :RainbowParentheses!!<CR>
 
-" Snipmate: update
-nmap <leader>sc :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
+" Snipmate
+imap <C-s> <Plug>snipMateNextOrTrigger
+smap <C-s> <Plug>snipMateNextOrTrigger
 " PHP Snipmate only inserts php
 "let g:snipMate = {}
 "let g:snipMate.scope_aliases['php'] = 'php'
@@ -440,6 +448,8 @@ let g:airline#extensions#whitespace#show_message = 0
 "let g:syntastic_quiet_messages = { "type": "style"  }
 "let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
 
+" TaskList ("view tasks")
+nmap <Leader>vt <Plug>TaskList
 " Markdown
 let g:vim_markdown_folding_disabled=1
 
@@ -485,7 +495,6 @@ autocmd FileType python nnoremap <buffer> <leader>vr :call VimuxRunCommand("ipyt
 autocmd FileType r nnoremap <buffer> <leader>vr :call VimuxRunCommand("R")
 autocmd FileType ruby nnoremap <buffer> <leader>vr :call VimuxRunCommand("pry")
 autocmd FileType matlab nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")
-" TODO: RSpec / Rails Console / other testing?
 
 " Prompt command
 map <leader>vp :VimuxPromptCommand
@@ -526,9 +535,9 @@ augroup matlab_debug
         \ nnoremap <buffer> <localleader>q :call VimuxSendText("dbquit\n")<CR> |
         \ nnoremap <buffer> <localleader>i :call VimuxSendText("dbstep in\n")<CR> |
         \ nnoremap <buffer> <localleader>o :call VimuxSendText("dbstep out\n")<CR> |
-        \ nnoremap <buffer> <leader>vb :call VimuxSendText("cd('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR>
+        \ nnoremap <buffer> <leader>vb :call VimuxSendText("cd('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR> |
+        \ inoremap <buffer> .. ...<CR>
 augroup END
-" TODO: imap <something> to make three dots, then linebreak
 
 " Vim-RSpec + Vimux
 let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
