@@ -70,7 +70,7 @@ set hlsearch
 set ignorecase " Ignore case when searching
 set smartcase  " Try and be smart about cases
 set magic
-nmap <Space> :nohlsearch<cr>
+nnoremap // :nohlsearch<cr>
 
 set iskeyword+=_
 
@@ -126,9 +126,6 @@ augroup reload_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
-
-" Remove whitespace on save (cribbed from @marcgg)
-autocmd BufWritePre * :%s/\s\+$//e
 
 " Restore cursor position
 if has("autocmd")
@@ -231,8 +228,10 @@ function! Preserve(command)
   let @/=_s
   call cursor(l, c)
 endfunction
-nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
-nmap _= :call Preserve("normal gg=G")<CR>
+" Remove whitespace on save (cribbed from @marcgg)
+autocmd! BufWritePre * call Preserve("%s/\\s\\+$//e")
+nnoremap <leader>= :silent call Preserve("normal gg=G")<CR>
+
 
 " Prune the arglist for matches
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
@@ -482,10 +481,10 @@ let g:sneak#streak = 1
 " Toggle hlsearch: coh
 
 " Vimux (although don't forget about vim-ipython)
-autocmd FileType python nmap <leader>vr :call VimuxRunCommand("ipython console")
-autocmd FileType r nmap <leader>vr :call VimuxRunCommand("R")
-autocmd FileType ruby nmap <leader>vr :call VimuxRunCommand("pry")
-autocmd FileType matlab nmap <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")
+autocmd FileType python nnoremap <buffer> <leader>vr :call VimuxRunCommand("ipython console")
+autocmd FileType r nnoremap <buffer> <leader>vr :call VimuxRunCommand("R")
+autocmd FileType ruby nnoremap <buffer> <leader>vr :call VimuxRunCommand("pry")
+autocmd FileType matlab nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")
 " TODO: RSpec / Rails Console / other testing?
 
 " Prompt command
@@ -520,14 +519,14 @@ nmap <leader>vb ggVG<leader>vs
 " Specific MATLAB-debugging bindings (assuming an open Vimux pane)
 augroup matlab_debug
   autocmd!
-  autocmd FileType matlab nmap <localleader>d :call VimuxSendText("dbstop in " . expand('%:t') . " at " . line(".") . "\n")<CR> |
-        \ nmap <localleader>s :call VimuxSendText("dbstep\n")<CR> |
-        \ nmap <localleader>c :call VimuxSendText("dbcont\n")<CR> |
-        \ nmap <localleader>r :call VimuxSendText("dbclear all\n")<CR> |
-        \ nmap <localleader>q :call VimuxSendText("dbquit\n")<CR> |
-        \ nmap <localleader>i :call VimuxSendText("dbstep in\n")<CR> |
-        \ nmap <localleader>o :call VimuxSendText("dbstep out\n")<CR> |
-        \ nmap <leader>vb :call VimuxSendText("cd('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR>
+  autocmd FileType matlab nnoremap <buffer> <localleader>d :call VimuxSendText("dbstop in " . expand('%:t') . " at " . line(".") . "\n")<CR> |
+        \ nnoremap <buffer> <localleader>s :call VimuxSendText("dbstep\n")<CR> |
+        \ nnoremap <buffer> <localleader>c :call VimuxSendText("dbcont\n")<CR> |
+        \ nnoremap <buffer> <localleader>r :call VimuxSendText("dbclear all\n")<CR> |
+        \ nnoremap <buffer> <localleader>q :call VimuxSendText("dbquit\n")<CR> |
+        \ nnoremap <buffer> <localleader>i :call VimuxSendText("dbstep in\n")<CR> |
+        \ nnoremap <buffer> <localleader>o :call VimuxSendText("dbstep out\n")<CR> |
+        \ nnoremap <buffer> <leader>vb :call VimuxSendText("cd('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR>
 augroup END
 " TODO: imap <something> to make three dots, then linebreak
 
