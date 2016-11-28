@@ -286,6 +286,7 @@ if executable('ag')
 endif
 
 " Airline
+set laststatus=2
 let g:airline_theme = 'wombat'
 "let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
