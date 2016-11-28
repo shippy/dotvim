@@ -116,6 +116,9 @@ au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType c setl ofu=ccomplete#CompleteCpp
 au FileType css setl ofu=csscomplete#CompleteCSS
 
+" Fix for crontab editing
+au BufEnter /private/tmp/crontab.* setl backupcopy=yes
+
 " Only highlight current line in active split
 augroup BgHighlight
   autocmd!
