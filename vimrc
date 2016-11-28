@@ -16,8 +16,8 @@
 set nocompatible
 
 " Pathogen
-let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython',
-      \'vim-rails', 'vim-rspec', 'vim-vroom', 'tabular', 'SuperTab', 'nerdcommenter']
+let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython', 'vim-ditto', 'VimCompletesMe',
+      \'vim-rails', 'vim-rspec', 'vim-vroom', 'tabular', 'nerdcommenter']
 "call add(g:pathogen_disabled, 'emmet-vim')
 
 " Exceptions per system
@@ -164,8 +164,7 @@ augroup writing
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() |
-        \ call lexical#init() |
-        \ DittoOn
+        \ call lexical#init()
 augroup END
 
 augroup except_help
@@ -435,8 +434,8 @@ let g:tex_conceal='b'
 "nmap <leader>r :RainbowParentheses!!<CR>
 
 " Snipmate
-imap <C-s> <Plug>snipMateNextOrTrigger
-smap <C-s> <Plug>snipMateNextOrTrigger
+" imap <C-J> <Plug>snipMateNextOrTrigger
+" smap <C-J> <Plug>snipMateNextOrTrigger
 " PHP Snipmate only inserts php
 "let g:snipMate = {}
 "let g:snipMate.scope_aliases['php'] = 'php'
@@ -482,11 +481,11 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 let g:sneak#streak = 1
 
 " SuperTab
-"let g:SuperTabDefaultCompletionType = 'context'
-"autocmd FileType *
-      "\ if &omnifunc != '' |
-      "\   call SuperTabChain(&omnifunc, "<c-p>") |
-      "\ endif
+let g:SuperTabDefaultCompletionType = 'context'
+autocmd FileType *
+      \ if &omnifunc != '' |
+      \   call SuperTabChain(&omnifunc, "<c-p>") |
+      \ endif
 
 " #Unimpaired
 " Add a line without changing position or leaving mode: ]<Space> and [<Space>
