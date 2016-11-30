@@ -145,7 +145,7 @@ au FocusLost * :wa
 
 " Automatically leave insert mode after `updatetime` ms of inaction (Vimtips)
 au CursorHoldI * stopinsert
-au InsertEnter * let updaterestore=&updatetime | set updatetime=10000
+au InsertEnter * let updaterestore=&updatetime | set updatetime=20000
 au InsertLeave * let &updatetime=updaterestore
 
 " Automatically load session
@@ -479,6 +479,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Sneak
 let g:sneak#streak = 1
+
+" Stencil
+let g:StencilTemplatepath = "~/.vim/templates/"
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = 'context'
