@@ -76,6 +76,10 @@ nnoremap k gk
 nnoremap <CR> G
 nnoremap <BS> gg
 
+" I spend stupid amounts of time scrolling up and down with C-U and C-D
+nnoremap <down> <C-d>
+nnoremap <up> <C-u>
+
 " #Appearance
 set number " Always show line numbers
 set scrolloff=7
@@ -161,6 +165,7 @@ augroup END
 augroup writing
   autocmd!
   autocmd FileType markdown,mkd,tex,mail setl spell spl=en |
+        \ setl tabstop=4 softtabstop=4 shiftwidth=4 |
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() |
@@ -186,10 +191,15 @@ nnoremap <Leader><Leader> :e#<CR>
 " doing what I do -- CtrlP/fzf to the other buffer I want, & get it in split
 " if need be.)
 nmap <leader>w :w!<cr>
-nmap <leader>x :x<cr>
-nmap fw :w!<cr>
+nmap <leader>x :x!<cr>
+nmap <leader>q :q!<cr>
 command! W w !sudo tee % > /dev/null
-nmap fq :q!<CR>
+
+" Undone because I had set it when I didn't use `f` very much
+" nmap fq :q!<CR>
+" nmap fw :w!<cr>
+nnoremap fw <nop>
+nnoremap fq <nop>
 
 " Yank to end of line with Y
 nnoremap Y y$
@@ -383,6 +393,10 @@ nmap <leader>gSb :Gist -m<CR>
 nmap <leader>u :GundoToggle<CR>
 let g:gundo_right = 1
 
+" ListToggle (*v*iew list)
+let g:lt_location_list_toggle_map = '<leader>vl'
+let g:lt_quickfix_list_toggle_map = '<leader>vq'
+
 " Markdown
 let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_conceal=1
@@ -561,3 +575,6 @@ map <Leader>re :R<CR>
 
 " Rails alternate: tests
 map <Leader>ra :A<CR>
+
+" VimWiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]

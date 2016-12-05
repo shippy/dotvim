@@ -1,7 +1,8 @@
 " Inspired by http://www.mdlerch.com/emailing-mutt-and-vim-advanced-config.html
 
 " Escape out of Goyo and file without any permanent after-hooks
-nnoremap <buffer> fq :Goyo!<CR>:qa!<CR>
+nnoremap <buffer> <leader>q :Goyo!<CR>:qa!<CR>
+nnoremap <buffer> <leader>x :Goyo!<CR>:xa!<CR>
 
 " Is this e-mail a response (as opposed to an existing draft)?
 function IsReply()
