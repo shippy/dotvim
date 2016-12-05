@@ -16,7 +16,7 @@
 set nocompatible
 
 " Pathogen
-let g:pathogen_disabled = ['emmet-vim', 'cosco.vim', 'vim-ipython', 'vim-ditto', 'VimCompletesMe',
+let g:pathogen_disabled = ['cosco.vim', 'vim-ipython', 'vim-ditto', 'VimCompletesMe',
       \'vim-rails', 'vim-rspec', 'vim-vroom', 'tabular', 'nerdcommenter']
 "call add(g:pathogen_disabled, 'emmet-vim')
 
@@ -341,8 +341,32 @@ nnoremap <C-w>S :split<CR>:Dirvish<CR>
 nnoremap <C-w>V :vsplit<CR>:Dirvish<CR>
 nnoremap <Leader>S :split<CR>:Dirvish<CR>
 nnoremap <Leader>V :vsplit<CR>:Dirvish<CR>
-nnoremap <Leader>n :20vsplit<CR>:Dirvish<CR>
-" TODO: Figure out how to get close the last one when I press `p` for previous
+" nnoremap <Leader>n :20vsplit<CR>:Dirvish<CR>
+nnoremap <leader>n :call ToggleDirvishSidebar()<CR>
+
+" TODO: Clean up, re-make into a plugin
+" Inspiration for toggling:
+" http://learnvimscriptthehardway.stevelosh.com/chapters/38.html
+" Inspiration for tab-wide variable: NERDTree
+function! ToggleDirvishSidebar()
+    if (exists("t:dirvish_sidebar") && t:dirvish_sidebar == 1)
+        let t:dirvish_sidebar = 0
+        execute t:dirvish_window . "quit"
+        execute t:dirvish_calling_window . "wincmd w"
+    else
+        let t:dirvish_sidebar = 1
+        let t:dirvish_calling_window = winnr()
+        :20vsplit
+        let t:dirvish_window = winnr()
+        Dirvish
+        autocmd BufWinLeave <buffer> let t:dirvish_sidebar = 0
+        " Ugly: push Dirvish-defined `p`, then call self
+        nmap <buffer> o p:call ToggleDirvishSidebar()<CR>
+        " TODO: Might actually have to grab the lines from dirvish/ftplugin,
+        " since I can't redefine the mappings recursively (and it's ugly /
+        " dangerous to do so)
+    endif
+endfunction
 
 " Ditto
 nmap <leader>di <Plug>ToggleDitto      " Turn it on and off
