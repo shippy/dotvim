@@ -408,3 +408,8 @@
   branch = master
   path = bundle/vim-stencil
   url = https://github.com/mrtazz/vim-stencil.git
+[submodule "bundle/vimwiki"]
+  ignore = untracked
+  branch = master
+  path = bundle/vimwiki
+  url = https://github.com/vimwiki/vimwiki.git
