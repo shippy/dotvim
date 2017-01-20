@@ -413,3 +413,6 @@
   branch = master
   path = bundle/vimwiki
   url = https://github.com/vimwiki/vimwiki.git
+[submodule "bundle/workflowish"]
+	path = bundle/workflowish
+	url = https://github.com/lukaszkorecki/workflowish.git
