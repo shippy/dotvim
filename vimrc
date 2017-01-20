@@ -73,8 +73,8 @@ set iskeyword+=_
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <CR> G
-nnoremap <BS> gg
+" nnoremap <CR> G
+" nnoremap <BS> gg
 
 " I spend stupid amounts of time scrolling up and down with C-U and C-D
 nnoremap <down> <C-d>
@@ -166,6 +166,7 @@ augroup writing
   autocmd!
   autocmd FileType markdown,mkd,tex,mail setl spell spl=en |
         \ setl tabstop=4 softtabstop=4 shiftwidth=4 |
+        \ setl nonumber |
         \ call textobj#sentence#init() |
         \ call pencil#init() |
         \ call litecorrect#init() |
@@ -247,6 +248,10 @@ endfunction
 autocmd! BufWritePre * call Preserve("%s/\\s\\+$//e")
 nnoremap <leader>= :silent call Preserve("normal gg=G")<CR>
 
+" Expression to help when I fucked up Markdown URL - assumes vim magic
+function! FixMarkdownLinks()
+  call Preserve("s/(\([^(]\{-}\))\[\(.\{-}\)\]/[\1](\2)")
+endfunction
 
 " Prune the arglist for matches
 command! -nargs=0 -bar Qargs execute 'args' QuickfixFilenames()
@@ -426,6 +431,7 @@ let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_conceal=1
 " FIXME: in iTerm2 / tmux, vim doesn't delete the *space* that MD link
 " URLs have, even though it hides them from view? To investigate further
+
 
 " Make / vim-dispatch
 nmap <Leader>m :Dispatch<CR>
