@@ -76,6 +76,7 @@ Plugin 'tpope/vim-tbone'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
+" TODO: Figure out use case of tbone vs. vimux
 
 " General coding
 Plugin 'scrooloose/syntastic'
@@ -96,10 +97,9 @@ Plugin 'vim-scripts/MatlabFilesEdition'
 " https://github.com/jeroendehaas/VimLab
 
 " Rails
-Plugin 'tpope/vim-rails'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'skalnik/vim-vroom'
-Plugin 'tpope/gem-ctags'
+" Plugin 'tpope/vim-rails'
+" Plugin 'thoughtbot/vim-rspec'
+" Plugin 'skalnik/vim-vroom'
 " http://benoithamelin.tumblr.com/post/15101202004/using-vim-exuberant-ctags-easy-source-navigation
 " http://blog.sensible.io/2014/05/09/supercharge-your-vim-into-ide-with-ctags.html
 
@@ -130,22 +130,23 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'mjbrownie/swapit'
 Plugin 'wellle/targets.vim'
 Plugin 'junegunn/fzf.vim'
-Plugin 'gastonsimone/vim-dokumentary'
+" Plugin 'gastonsimone/vim-dokumentary'
+" TODO: Remap K to grep word under cursor
 
 " - Alignment
-Plugin 'godlygeek/tabular'
-Plugin 'tommcdo/vim-lion'
+" Plugin 'godlygeek/tabular'
+" Plugin 'tommcdo/vim-lion'
 
 " - Yanking and undo
-Plugin 'sjl/gundo.vim'
+" Plugin 'sjl/gundo.vim'
 Plugin 'vim-scripts/YankRing.vim'
 
 " - Writing tools
-Plugin 'reedes/vim-wordy'
-Plugin 'dbmrq/vim-ditto'
+" Plugin 'reedes/vim-wordy'
+" Plugin 'dbmrq/vim-ditto'
 
 " - Refactoring / easier code writing
-Plugin 'mattn/emmet-vim'
+" Plugin 'mattn/emmet-vim'
 Plugin 'lfilho/cosco.vim'
 Plugin 'tpope/vim-dotenv'
 Plugin 'AndrewRadev/splitjoin.vim'
@@ -312,6 +313,9 @@ inoremap jj <ESC>
 " Cribbed from @marcgg -- quick switch to previous file
 nnoremap <Leader><Leader> :e#<CR>
 
+" Trying out for size, thanks to Clever-f
+noremap ; :
+
 " Quick-saving/exiting shortcuts
 " TODO: Sane work with buffers could be nice, especially with airline's
 " buffer list. Set it up perhaps so that `fq` kills the buffer (:bd!), and
@@ -440,8 +444,8 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " Cosco - smart-add semicolons / commas
-"autocmd FileType javascript,css,php nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
-"autocmd FileType javascript,css,php inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
+autocmd FileType javascript,css,php,matlab nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
+autocmd FileType javascript,css,php,matlab inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
 
 " CSV
 let g:csv_autocmd_arrange = 1
