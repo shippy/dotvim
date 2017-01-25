@@ -177,6 +177,7 @@ set ttyfast
 set ffs=unix,dos,mac
 
 set modelines=1
+set clipboard^=unnamed " Use system clipboard
 
 " No backup file or undo file (git, Yankring take care of that)
 set nobackup
@@ -739,3 +740,6 @@ map <Leader>ra :A<CR>
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
+" YankRing (stop messing with system clipboard)
+let g:yankring_clipboard_monitor=0
