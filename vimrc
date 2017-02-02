@@ -84,7 +84,7 @@ Plugin 'tpope/vim-endwise'
 
 " Language-specific
 Plugin 'plasticboy/vim-markdown'
-Plugin 'vim-pandoc/vim-rmarkdown'
+" Plugin 'vim-pandoc/vim-rmarkdown'
 Plugin 'vim-ruby/vim-ruby'
 " Plugin 'StanAngeloff/php.vim'
 Plugin 'lervag/vimtex'
@@ -135,11 +135,13 @@ Plugin 'junegunn/fzf.vim'
 
 " - Alignment
 " Plugin 'godlygeek/tabular'
+Plugin 'junegunn/vim-easy-align'
 " Plugin 'tommcdo/vim-lion'
 
 " - Yanking and undo
 " Plugin 'sjl/gundo.vim'
-Plugin 'vim-scripts/YankRing.vim'
+" Plugin 'vim-scripts/YankRing.vim'
+Plugin 'maxbrunsfeld/vim-yankstack'
 
 " - Writing tools
 " Plugin 'reedes/vim-wordy'
@@ -150,6 +152,8 @@ Plugin 'vim-scripts/YankRing.vim'
 Plugin 'lfilho/cosco.vim'
 Plugin 'tpope/vim-dotenv'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'Chiel92/vim-autoformat'
+" TODO: Install formatters for Octave, Ruby, Python
 
 " - External services
 Plugin 'mattn/gist-vim'
@@ -216,8 +220,11 @@ set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set expandtab
 set autoindent
 set smartindent
-if has("linebreak")
+if exists('+breakindent')
   set breakindent
+  let &showbreak = '↳ '
+  let &breakat = " \t;:,])}"
+  set cpo+=n
 endif
 set showcmd    " Shows incomplete command
 set noerrorbells
@@ -312,7 +319,7 @@ augroup END
 let mapleader ="\<Space>"
 inoremap jj <ESC>
 " Cribbed from @marcgg -- quick switch to previous file
-nnoremap <Leader><Leader> :e#<CR>
+nnoremap <space><space> :e#<CR>
 
 " Trying out for size, thanks to Clever-f
 noremap ; :
