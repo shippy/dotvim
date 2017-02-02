@@ -1,21 +1,6 @@
-# Installing on your own machine
+My `vim` config files. Initial form taken from @edance; heavy modifications have been done since.
 
-    cd ~
-    git clone http://github.com/edance/vim.git ~/.vim
-    ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
-    cd ~/.vim
-    git submodule update --init 
-
-## Installing plugins as git submodules
-
-    cd ~/.vim
-    mkdir ~/.vim/bundle
-    git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
-    git add .
-    git commit -m "Install Fugitive.vim bundle as a submodule."
-
-## Upgrading all bundled plugins
-    git submodule foreach git pull origin master
-
-# Big Thanks to zjrosen1 ;)
+# Install
+1. Clone the repo (`git clone --recursive https://github.com/shippy/dotvim.git`) to an arbitrary location.
+2. Symlink it to `~/.vim`, or anywhere else your `vim` will look for config files. (You can also clone it into that folder directly.)
+3. Run `vim +PluginInstall +PluginClean +qall` to let Vundle load all plugins.
