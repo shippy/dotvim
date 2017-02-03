@@ -130,6 +130,7 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'mjbrownie/swapit'
 Plugin 'wellle/targets.vim'
 Plugin 'junegunn/fzf.vim'
+Plugin 'reedes/vim-one'
 " Plugin 'gastonsimone/vim-dokumentary'
 " TODO: Remap K to grep word under cursor
 
