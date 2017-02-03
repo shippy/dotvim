@@ -114,7 +114,7 @@ Plugin 'reedes/vim-litecorrect'
 Plugin 'rbonvall/vim-textobj-latex'
 Plugin 'beloglazov/vim-textobj-punctuation'
 
-" Dependencies
+" Prerequisites
 Plugin 'kana/vim-textobj-user'
 Plugin 'tomtom/tlib_vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -461,7 +461,6 @@ let g:csv_autocmd_arrange = 1
 " CtrlP
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPMixed'
-nnoremap <C-t> :CtrlPTag<CR>
 nnoremap <Leader>t :CtrlPTag<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
 "nnoremap <C-[> :pop<CR>
@@ -528,8 +527,10 @@ let g:dokumentary_docprgs = {'ruby': 'ri --no-pager {0} | col -b'}
 "let g:EasyMotion_leader_key = '<Leader>'
 
 " EasyTag
-set tags=~/.vimtags,./tags;
+set tags=./tags
 let g:easytags_async = 1
+" let g:easytags_dynamic_files = 2
+let g:easytags_by_filetype = '~/.cache/tags'
 "let g:easytags_syntax_keyword = 'always'
 
 " Emmet
@@ -728,6 +729,15 @@ augroup matlab_debug
         \ inoremap <buffer> .. ...<CR>
 augroup END
 
+" Single-project bindings
+augroup matlab_ptb
+  autocmd!
+  autocmd BufNewFile,BufRead ~/Coding/RNA_PTB_task/*
+        \ nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nosplash")<CR> |
+        \ nnoremap <buffer> <leader>v :call VimuxSendText(expand("%:t:r") . "(2)\n")<CR> |
+        \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>
+augroup END
+
 " Vim-RSpec + Vimux
 let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
 map <Leader>rt :call RunCurrentSpecFile()<CR>
@@ -748,5 +758,11 @@ map <Leader>ra :A<CR>
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
-" YankRing (stop messing with system clipboard)
-let g:yankring_clipboard_monitor=0
+" YankStack
+" To protect vim-surround, because ugh
+call yankstack#setup()
+nmap Y y$
+
+nmap p <Plug>yankstack_substitute_older_paste
+nmap P <Plug>yankstack_substitute_newer_paste
+nmap <leader>p :Yanks<CR>
