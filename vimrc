@@ -241,12 +241,11 @@ set cursorline                      " Highlight current line
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
 set foldlevel=99    "File unfolded, always - use zM to close
 
-try
-  colorscheme ron
-catch
-endtry
-
+colorscheme ron
 set background=dark
+" To keep styles after post-edit sourcing .vimrc
+silent do ColorScheme
+
 
 " #General (plugin-nonspecific) Auto Commands
 " Get autocompletion for filetypes
@@ -726,6 +725,7 @@ augroup matlab_debug
         \ nnoremap <buffer> <localleader>q :call VimuxSendText("dbquit\n")<CR> |
         \ nnoremap <buffer> <localleader>i :call VimuxSendText("dbstep in\n")<CR> |
         \ nnoremap <buffer> <localleader>o :call VimuxSendText("dbstep out\n")<CR> |
+        \ nnoremap <buffer> <localleader>p :call VimuxSendText("PsychDebugWindowConfiguration\n")<CR> |
         \ nnoremap <buffer> <leader>vb :call VimuxSendText("cd('" . expand('%:p:h') . "');\n" . expand('%:t:r') . "\n")<CR> |
         \ inoremap <buffer> .. ...<CR>
 augroup END
@@ -735,8 +735,8 @@ augroup matlab_ptb
   autocmd!
   autocmd BufNewFile,BufRead ~/Coding/RNA_PTB_task/*
         \ nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nosplash")<CR> |
-        \ nnoremap <buffer> <leader>v :call VimuxSendText(expand("%:t:r") . "(2)\n")<CR> |
-        \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>
+        \ nnoremap <buffer> <leader>v :call VimuxSendText(expand("%:t:r") . "(2)\n")<CR>:map 1 <nop><CR>:map 2 <nop><CR>:map 5 <nop><CR> |
+        \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>:unmap 1 <CR>:unmap 2 <CR>:unmap 5 <CR> |
 augroup END
 
 " Vim-RSpec + Vimux
@@ -764,6 +764,5 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
 call yankstack#setup()
 nmap Y y$
 
-nmap p <Plug>yankstack_substitute_older_paste
-nmap P <Plug>yankstack_substitute_newer_paste
-nmap <leader>p :Yanks<CR>
+nnoremap <leader>p <Plug>yankstack_substitute_older_paste
+nnoremap <leader>P :Yanks<CR>
