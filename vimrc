@@ -131,6 +131,9 @@ Plugin 'mjbrownie/swapit'
 Plugin 'wellle/targets.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'reedes/vim-one'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'rickhowe/diffchar.vim'
+Plugin 'jaxbot/github-issues.vim'
 " Plugin 'gastonsimone/vim-dokumentary'
 " TODO: Remap K to grep word under cursor
 
@@ -158,6 +161,7 @@ Plugin 'Chiel92/vim-autoformat'
 
 " - External services
 Plugin 'mattn/gist-vim'
+Plugin 'jaxbot/browserlink.vim'
 
 " - Visual
 Plugin 'idanarye/vim-merginal'
@@ -166,6 +170,7 @@ let g:tmuxline_powerline_separators = 0
 
 " - Misc
 Plugin 'lukaszkorecki/workflowish'
+Plugin 'mnick/vim-pomodoro'
 
 call vundle#end()
 
