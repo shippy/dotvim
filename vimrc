@@ -161,6 +161,8 @@ Plugin 'mattn/gist-vim'
 
 " - Visual
 Plugin 'idanarye/vim-merginal'
+Plugin 'edkolev/tmuxline.vim'
+let g:tmuxline_powerline_separators = 0
 
 " - Misc
 Plugin 'lukaszkorecki/workflowish'
@@ -442,6 +444,7 @@ endif
 set laststatus=2
 let g:airline_theme = 'wombat'
 "let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#syntastic#enabled = 0
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
