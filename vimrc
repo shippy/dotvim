@@ -744,7 +744,11 @@ augroup matlab_ptb
   autocmd BufNewFile,BufRead ~/Coding/RNA_PTB_task/*
         \ nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nosplash")<CR> |
         \ nnoremap <buffer> <leader>v :call VimuxSendText(expand("%:t:r") . "(2)\n")<CR>:map 1 <nop><CR>:map 2 <nop><CR>:map 5 <nop><CR> |
-        \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>:unmap 1 <CR>:unmap 2 <CR>:unmap 5 <CR> |
+        \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>:unmap 1<CR>:unmap 2<CR>:unmap 5<CR> |
+        \ nnoremap <buffer> <leader>rm :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;MDM;quit;'<CR>:Dispatch!<CR> |
+        \ nnoremap <buffer> <leader>RM :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;MDM(2);quit;'<CR>:Dispatch!<CR> |
+        \ nnoremap <buffer> <leader>rr :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;RA;quit;'<CR>:Dispatch!<CR> |
+        \ nnoremap <buffer> <leader>RR :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;RA(2);quit;'<CR>:Dispatch!<CR> |
 augroup END
 
 " Vim-RSpec + Vimux
