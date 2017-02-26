@@ -133,7 +133,11 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'reedes/vim-one'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'rickhowe/diffchar.vim'
-Plugin 'jaxbot/github-issues.vim'
+if has('python')
+  Plugin 'jaxbot/github-issues.vim'
+endif
+" Better multifile search
+Plugin 'wincent/ferret'
 " Plugin 'gastonsimone/vim-dokumentary'
 " TODO: Remap K to grep word under cursor
 
