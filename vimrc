@@ -92,6 +92,8 @@ Plugin 'lervag/vimtex'
 Plugin 'chrisbra/csv.vim'
 " TODO for R: https://github.com/jalvesaq/Nvim-R,
 Plugin 'vim-pandoc/vim-pandoc'
+let g:pandoc#filetypes#pandoc_markdown = 0
+
 Plugin 'vim-scripts/MatlabFilesEdition'
 
 " https://github.com/jeroendehaas/VimLab
@@ -257,6 +259,9 @@ set background=dark
 " To keep styles after post-edit sourcing .vimrc
 silent do ColorScheme
 
+set title
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
 
 " #General (plugin-nonspecific) Auto Commands
 " Get autocompletion for filetypes
@@ -444,7 +449,15 @@ endfunction
 
 " #Plugin settings and mappings
 " Ack
-nmap <Leader>a :Ack<space>
+" Vanilla search
+nmap <Leader>a :Ack! ""<left>
+" Search word under cursor
+nmap <Leader>* :Ack!<CR>
+" Search the last search
+nmap <Leader>A :AckFromSearch!<CR>
+" Execute over every entry in quicklist
+nmap <Leader>c :cdo<space>
+nmap <Leader>C :cdo s//
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
@@ -693,6 +706,9 @@ autocmd FileType *
 " Toggle hlsearch: coh
 
 " Vimux (although don't forget about vim-ipython)
+let g:VimuxUseNearest = 0
+
+" Specify prompt commands
 autocmd FileType python nnoremap <buffer> <leader>vr :call VimuxRunCommand("ipython console")
 autocmd FileType r nnoremap <buffer> <leader>vr :call VimuxRunCommand("R")
 autocmd FileType ruby nnoremap <buffer> <leader>vr :call VimuxRunCommand("pry")
@@ -748,6 +764,7 @@ augroup matlab_ptb
   autocmd BufNewFile,BufRead ~/Coding/RNA_PTB_task/*
         \ nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nosplash")<CR> |
         \ nnoremap <buffer> <leader>v :call VimuxSendText(expand("%:t:r") . "(2)\n")<CR>:map 1 <nop><CR>:map 2 <nop><CR>:map 5 <nop><CR> |
+        \ nnoremap <buffer> <localleader>m :call VimuxSendText("MDM(2)\n")<CR>:map 1 <nop><CR>:map 2 <nop><CR>:map 5 <nop><CR> |
         \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>:unmap 1<CR>:unmap 2<CR>:unmap 5<CR> |
         \ nnoremap <buffer> <leader>rm :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;MDM;quit;'<CR>:Dispatch!<CR> |
         \ nnoremap <buffer> <leader>RM :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;MDM(2);quit;'<CR>:Dispatch!<CR> |
@@ -774,6 +791,7 @@ map <Leader>ra :A<CR>
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_ext2syntax = {}
 
 " YankStack
 " To protect vim-surround, because ugh
