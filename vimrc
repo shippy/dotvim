@@ -792,6 +792,9 @@ map <Leader>ra :A<CR>
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_ext2syntax = {}
+augroup vimwiki
+  autocmd BufNewFile,BufRead ~/vimwiki/* set ft=vimwiki syntax=vimwiki
+augroup END
 
 " YankStack
 " To protect vim-surround, because ugh
