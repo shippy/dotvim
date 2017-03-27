@@ -139,7 +139,7 @@ if has('python')
   Plugin 'jaxbot/github-issues.vim'
 endif
 " Better multifile search
-Plugin 'wincent/ferret'
+" Plugin 'wincent/ferret'
 " Plugin 'gastonsimone/vim-dokumentary'
 " TODO: Remap K to grep word under cursor
 
@@ -339,6 +339,10 @@ nnoremap <space><space> :e#<CR>
 
 " Trying out for size, thanks to Clever-f
 noremap ; :
+
+" Saving pinkies by removing one Shift press at a time
+noremap ;e1 :e!
+noremap ;5s :%s
 
 " Quick-saving/exiting shortcuts
 " TODO: Sane work with buffers could be nice, especially with airline's
