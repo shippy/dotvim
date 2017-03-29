@@ -49,6 +49,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 " TODO: Investigate MATLAB not closing `end`?
 Plugin 'rhysd/clever-f.vim'
+Plugin 'tmux-plugins/vim-tmux-focus-events'
 
 " Usability improvements
 Plugin 'tpope/vim-dispatch'
@@ -168,6 +169,7 @@ Plugin 'Chiel92/vim-autoformat'
 " - External services
 Plugin 'mattn/gist-vim'
 Plugin 'jaxbot/browserlink.vim'
+Plugin 'wellle/tmux-complete.vim'
 
 " - Visual
 Plugin 'idanarye/vim-merginal'
@@ -343,6 +345,9 @@ noremap ; :
 " Saving pinkies by removing one Shift press at a time
 noremap ;e1 :e!
 noremap ;5s :%s
+
+" Sensible undo (inspired SpaceVim)
+nnoremap U <c-r>
 
 " Quick-saving/exiting shortcuts
 " TODO: Sane work with buffers could be nice, especially with airline's
@@ -710,7 +715,7 @@ autocmd FileType *
 " Toggle hlsearch: coh
 
 " Vimux (although don't forget about vim-ipython)
-let g:VimuxUseNearest = 0
+let g:VimuxUseNearest = 1
 
 " Specify prompt commands
 autocmd FileType python nnoremap <buffer> <leader>vr :call VimuxRunCommand("ipython console")
@@ -719,7 +724,7 @@ autocmd FileType ruby nnoremap <buffer> <leader>vr :call VimuxRunCommand("pry")
 autocmd FileType matlab nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nodisplay -nosplash")
 
 " Prompt command
-map <leader>vp :VimuxPromptCommand
+map <leader>v :VimuxPromptCommand
 
 function! VimuxSlime()
   " Grab register v
