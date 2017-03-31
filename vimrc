@@ -196,10 +196,10 @@ set nobackup
 set noswapfile
 set noundofile
 
-"if has('mouse')
-  "set ttymouse=xterm2
-  "set mouse=a
-"endif
+if has('mouse')
+  set ttymouse=xterm2
+  set mouse=a
+endif
 
 " #Searching/Moving
 set gdefault   " Add the g flag to search/replace by default
@@ -342,23 +342,17 @@ noremap ;5s :%s
 nnoremap U <c-r>
 
 " Quick-saving/exiting shortcuts
-" TODO: Sane work with buffers could be nice, especially with airline's
-" buffer list. Set it up perhaps so that `fq` kills the buffer (:bd!), and
-" closes vim if this is the last buffer open? (Alternatively, I can just keep
-" doing what I do -- CtrlP/fzf to the other buffer I want, & get it in split
-" if need be.)
 nmap <leader>w :w!<cr>
 nmap <leader>x :x!<cr>
 nmap <leader>q :q!<cr>
 command! W w !sudo tee % > /dev/null
 
-" Undone because I had set it when I didn't use `f` very much
-" nmap fq :q!<CR>
-" nmap fw :w!<cr>
-nnoremap fw <nop>
-nnoremap fq <nop>
+" Yanking
+" To protect vim-surround and sneak, called early
+call yankstack#setup()
 
-" Yank to end of line with Y
+nnoremap <leader>p <Plug>yankstack_substitute_older_paste
+nnoremap <leader>P :Yanks<CR>
 nnoremap Y y$
 
 " Visually select the text that was last edited/pasted
@@ -368,7 +362,9 @@ nmap gV `[v`]
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
-nnoremap Q <nop>
+
+" Opposite of J (and I've opened way too many useless manpages)
+nnoremap K i<Enter><esc>h
 
 " Edit various important files
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
@@ -477,6 +473,9 @@ let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.whitespace = 'Ξ'
 
+" Autopairs
+let g:AutoPairsShortcutToggle = ''
+
 " Cosco - smart-add semicolons / commas
 autocmd FileType javascript,css,php,matlab nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
 autocmd FileType javascript,css,php,matlab inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
@@ -489,9 +488,6 @@ let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 nnoremap <Leader>t :CtrlPTag<CR>
 nnoremap <Leader>f :CtrlPMixed<CR>
-"nnoremap <C-[> :pop<CR>
-"This map causes arrows to activate OA,OB,OC,OD -- unclear why? Perhaps
-"because it's ^[?
 
 let g:ctrlp_match_window_bottom = 0 " Show at top of window
 let g:ctrlp_working_path_mode = 2 " Smart path mode
@@ -542,13 +538,14 @@ nnoremap <leader>gr :Git! diff --staged<CR>
 " ListToggle (*v*iew list)
 let g:lt_location_list_toggle_map = '<leader>vl'
 let g:lt_quickfix_list_toggle_map = '<leader>vq'
+" TaskList ("view tasks")
+nmap <Leader>vt <Plug>TaskList
 
 " Markdown
 let g:vim_markdown_initial_foldlevel=1
 let g:vim_markdown_conceal=1
 " FIXME: in iTerm2 / tmux, vim doesn't delete the *space* that MD link
 " URLs have, even though it hides them from view? To investigate further
-
 
 " Make / vim-dispatch
 nmap <Leader>m :Dispatch<CR>
@@ -592,7 +589,7 @@ let g:pencil#autoformat_blacklist = [
 let g:tex_conceal='b'
 
 " Rainbow Parens
-"nmap <leader>r :RainbowParentheses!!<CR>
+nmap <leader>] :RainbowParentheses!!<CR>
 
 " Snipmate
 " imap <C-J> <Plug>snipMateNextOrTrigger
@@ -612,8 +609,6 @@ let g:airline#extensions#whitespace#show_message = 0
 "let g:syntastic_quiet_messages = { "type": "style"  }
 "let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
 
-" TaskList ("view tasks")
-nmap <Leader>vt <Plug>TaskList
 " Markdown
 let g:vim_markdown_folding_disabled=1
 
@@ -640,6 +635,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Sneak
 let g:sneak#streak = 1
+" Avoid clobbering by YankStack
+nmap s <Plug>Sneak_s
+nmap S <Plug>Sneak_S
 
 " Stencil
 let g:StencilTemplatepath = "~/.vim/templates/"
@@ -715,26 +713,14 @@ augroup matlab_ptb
   autocmd!
   autocmd BufNewFile,BufRead ~/Coding/RNA_PTB_task/*
         \ nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nosplash")<CR> |
-        \ nnoremap <buffer> <leader>v :call VimuxSendText(expand("%:t:r") . "(2)\n")<CR>:map 1 <nop><CR>:map 2 <nop><CR>:map 5 <nop><CR> |
-        \ nnoremap <buffer> <localleader>m :call VimuxSendText("MDM(2)\n")<CR>:map 1 <nop><CR>:map 2 <nop><CR>:map 5 <nop><CR> |
-        \ nnoremap <buffer> <leader>b :call VimuxSendText("sca\n")<CR>:unmap 1<CR>:unmap 2<CR>:unmap 5<CR> |
-        \ nnoremap <buffer> <leader>rm :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;MDM;quit;'<CR>:Dispatch!<CR> |
-        \ nnoremap <buffer> <leader>RM :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;MDM(2);quit;'<CR>:Dispatch!<CR> |
-        \ nnoremap <buffer> <leader>rr :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;RA;quit;'<CR>:Dispatch!<CR> |
-        \ nnoremap <buffer> <leader>RR :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;RA(2);quit;'<CR>:Dispatch!<CR> |
+        \ nnoremap <buffer> <leader>vx :call VimuxSendText("sca\n")<CR>
 augroup END
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_ext2syntax = {}
+let g:vimwiki_global_ext = 0
+let g:vimwiki_dir_link = 'index'
+let g:vimwiki_auto_chdir = 1
 augroup vimwiki
   autocmd BufNewFile,BufRead ~/vimwiki/* set ft=vimwiki syntax=vimwiki
 augroup END
-
-" YankStack
-" To protect vim-surround, because ugh
-call yankstack#setup()
-nmap Y y$
-
-nnoremap <leader>p <Plug>yankstack_substitute_older_paste
-nnoremap <leader>P :Yanks<CR>
