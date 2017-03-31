@@ -50,6 +50,7 @@ Plugin 'jiangmiao/auto-pairs'
 " TODO: Investigate MATLAB not closing `end`?
 Plugin 'rhysd/clever-f.vim'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
+Plugin 'tpope/vim-eunuch'
 
 " Usability improvements
 Plugin 'tpope/vim-dispatch'
@@ -62,7 +63,7 @@ Plugin 'tpope/vim-obsession'
 Plugin 'dhruvasagar/vim-prosession'
 Plugin 'xolox/vim-easytags'
 " TODO: Make sure that this works across platforms
-Plugin 'justinmk/vim-dirvish'
+" Plugin 'justinmk/vim-dirvish'
 Plugin 'tpope/vim-sleuth'
 Plugin 'Lokaltog/vim-easymotion'
 
@@ -124,12 +125,10 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'vim-scripts/Vimball'
 Plugin 'vim-scripts/ingo-library'
 Plugin 'xolox/vim-misc'
-Plugin 'mattn/webapi-vim'
 
 " Experimental / barely used
 " - Better vim
 Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-eunuch'
 Plugin 'mjbrownie/swapit'
 Plugin 'wellle/targets.vim'
 Plugin 'junegunn/fzf.vim'
@@ -141,8 +140,6 @@ if has('python')
 endif
 " Better multifile search
 " Plugin 'wincent/ferret'
-" Plugin 'gastonsimone/vim-dokumentary'
-" TODO: Remap K to grep word under cursor
 
 " - Alignment
 " Plugin 'godlygeek/tabular'
@@ -150,13 +147,11 @@ Plugin 'junegunn/vim-easy-align'
 " Plugin 'tommcdo/vim-lion'
 
 " - Yanking and undo
-" Plugin 'sjl/gundo.vim'
 " Plugin 'vim-scripts/YankRing.vim'
 Plugin 'maxbrunsfeld/vim-yankstack'
 
 " - Writing tools
 " Plugin 'reedes/vim-wordy'
-" Plugin 'dbmrq/vim-ditto'
 
 " - Refactoring / easier code writing
 " Plugin 'mattn/emmet-vim'
@@ -167,7 +162,6 @@ Plugin 'Chiel92/vim-autoformat'
 " TODO: Install formatters for Octave, Ruby, Python
 
 " - External services
-Plugin 'mattn/gist-vim'
 Plugin 'jaxbot/browserlink.vim'
 Plugin 'wellle/tmux-complete.vim'
 
@@ -177,8 +171,6 @@ Plugin 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
 
 " - Misc
-Plugin 'lukaszkorecki/workflowish'
-Plugin 'mnick/vim-pomodoro'
 
 call vundle#end()
 
@@ -512,51 +504,13 @@ if executable('ag')
 endif
 
 " Dirvish
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
-nnoremap <C-w>S :split<CR>:Dirvish<CR>
-nnoremap <C-w>V :vsplit<CR>:Dirvish<CR>
-nnoremap <Leader>S :split<CR>:Dirvish<CR>
-nnoremap <Leader>V :vsplit<CR>:Dirvish<CR>
-" nnoremap <Leader>n :20vsplit<CR>:Dirvish<CR>
-nnoremap <leader>n :call ToggleDirvishSidebar()<CR>
+" let g:loaded_netrw = 1
+" let g:loaded_netrwPlugin = 1
+nnoremap <C-w>S :Sex
+nnoremap <C-w>V :Vex
+nnoremap <Leader>S :Sex
+nnoremap <Leader>V :Vex
 
-" TODO: Clean up, re-make into a plugin
-" Inspiration for toggling:
-" http://learnvimscriptthehardway.stevelosh.com/chapters/38.html
-" Inspiration for tab-wide variable: NERDTree
-function! ToggleDirvishSidebar()
-    if (exists("t:dirvish_sidebar") && t:dirvish_sidebar == 1)
-        let t:dirvish_sidebar = 0
-        execute t:dirvish_window . "quit"
-        execute t:dirvish_calling_window . "wincmd w"
-    else
-        let t:dirvish_sidebar = 1
-        let t:dirvish_calling_window = winnr()
-        :20vsplit
-        let t:dirvish_window = winnr()
-        Dirvish
-        autocmd BufWinLeave <buffer> let t:dirvish_sidebar = 0
-        " Ugly: push Dirvish-defined `p`, then call self
-        nmap <buffer> o p:call ToggleDirvishSidebar()<CR>
-        " TODO: Might actually have to grab the lines from dirvish/ftplugin,
-        " since I can't redefine the mappings recursively (and it's ugly /
-        " dangerous to do so)
-    endif
-endfunction
-
-" Ditto
-nmap <leader>di <Plug>ToggleDitto      " Turn it on and off
-
-nmap =d <Plug>DittoNext                " Jump to the next word
-nmap -d <Plug>DittoPrev                " Jump to the previous word
-nmap +d <Plug>DittoGood                " Ignore the word under the cursor
-nmap _d <Plug>DittoBad                 " Stop ignoring the word under the cursor
-nmap ]d <Plug>DittoMore                " Show the next matches
-nmap [d <Plug>DittoLess                " Show the previous matches"]
-
-" Dokumentary
-let g:dokumentary_docprgs = {'ruby': 'ri --no-pager {0} | col -b'}
 " Easy-motion
 "let g:EasyMotion_leader_key = '<Leader>'
 
@@ -584,17 +538,6 @@ nmap <leader>gs :Gstatus<CR>
 nmap <leader>gd :Gdiff<CR>
 " Review staged changes (credit: http://stackoverflow.com/a/29454450/2114580)
 nnoremap <leader>gr :Git! diff --staged<CR>
-
-" Gist
-let g:gist_post_private = 1
-vmap <leader>gS :'<,'>Gist<CR>
-nmap <leader>gS :Gist<CR>
-nmap <leader>gSb :Gist -m<CR>
-
-" Gundo
-" TODO: Crouton vim is compiled without sufficient Python version
-nmap <leader>u :GundoToggle<CR>
-let g:gundo_right = 1
 
 " ListToggle (*v*iew list)
 let g:lt_location_list_toggle_map = '<leader>vl'
@@ -780,23 +723,6 @@ augroup matlab_ptb
         \ nnoremap <buffer> <leader>rr :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;RA;quit;'<CR>:Dispatch!<CR> |
         \ nnoremap <buffer> <leader>RR :FocusDispatch matlab -nodesktop -nosplash -r 'PsychDebugWindowConfiguration;RA(2);quit;'<CR>:Dispatch!<CR> |
 augroup END
-
-" Vim-RSpec + Vimux
-let g:rspec_command = 'call VimuxRunCommand("xvfb-run bundle exec rspec {spec}\n")'
-map <Leader>rt :call RunCurrentSpecFile()<CR>
-map <Leader>rs :call RunNearestSpec()<CR>
-map <Leader>rr :call RunLastSpec()<CR>
-map <Leader>rS :call RunAllSpecs()<CR>
-
-map <Leader>rc :Econtroller<CR>
-map <Leader>rm :Emodel<CR>
-map <Leader>rv :Eview<CR>
-
-" Rails related: view to controller, schema to model, ...
-map <Leader>re :R<CR>
-
-" Rails alternate: tests
-map <Leader>ra :A<CR>
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
