@@ -291,7 +291,7 @@ if has("autocmd")
 endif
 
 " Save on losing focus
-au FocusLost * :wa
+au FocusLost * :silent wa
 
 " Automatically leave insert mode after `updatetime` ms of inaction (Vimtips)
 au CursorHoldI * stopinsert
@@ -508,7 +508,7 @@ nnoremap <Leader>S :Sex
 nnoremap <Leader>V :Vex
 
 " Easy-motion
-"let g:EasyMotion_leader_key = '<Leader>'
+let g:EasyMotion_leader_key = '<LocalLeader>'
 
 " EasyTag
 set tags=./tags
