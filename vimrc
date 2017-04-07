@@ -61,9 +61,8 @@ Plugin 'justinmk/vim-sneak'
 Plugin 'vim-scripts/EnhancedJumps'
 Plugin 'tpope/vim-obsession'
 Plugin 'dhruvasagar/vim-prosession'
-Plugin 'xolox/vim-easytags'
-" TODO: Make sure that this works across platforms
 " Plugin 'justinmk/vim-dirvish'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'tpope/vim-sleuth'
 Plugin 'Lokaltog/vim-easymotion'
 
@@ -167,8 +166,8 @@ Plugin 'wellle/tmux-complete.vim'
 
 " - Visual
 Plugin 'idanarye/vim-merginal'
-Plugin 'edkolev/tmuxline.vim'
-let g:tmuxline_powerline_separators = 0
+" Plugin 'edkolev/tmuxline.vim'
+" let g:tmuxline_powerline_separators = 0
 
 " - Misc
 
@@ -499,7 +498,7 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
-" Dirvish
+" Dirvish / netrw
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
 nnoremap <C-w>S :Sex
@@ -509,13 +508,6 @@ nnoremap <Leader>V :Vex
 
 " Easy-motion
 let g:EasyMotion_leader_key = '<LocalLeader>'
-
-" EasyTag
-set tags=./tags
-let g:easytags_async = 1
-" let g:easytags_dynamic_files = 2
-let g:easytags_by_filetype = '~/.cache/tags'
-"let g:easytags_syntax_keyword = 'always'
 
 " Emmet
 let g:user_emmet_leader_key = '<c-e>'
