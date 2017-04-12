@@ -501,10 +501,10 @@ endif
 " Dirvish / netrw
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
-nnoremap <C-w>S :Sex
-nnoremap <C-w>V :Vex
-nnoremap <Leader>S :Sex
-nnoremap <Leader>V :Vex
+nnoremap <C-w>S :Sex<CR>
+nnoremap <C-w>V :Vex<CR>
+nnoremap <Leader>S :Sex<CR>
+nnoremap <Leader>V :Vex<CR>
 
 " Easy-motion
 let g:EasyMotion_leader_key = '<LocalLeader>'
