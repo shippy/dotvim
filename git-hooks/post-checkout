@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo "Started updating vim plugins in the background"
+exec vim -c VundleUpdate -c PluginClean! -c quitall &> /dev/null &
+exit

@@ -24,7 +24,7 @@ endif
 set runtimepath+=$VIMHOME/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'shippy/Vundle.vim'
 
 " @tpope plugins
 Plugin 'tpope/vim-fugitive'
