@@ -152,7 +152,9 @@ Plugin 'maxbrunsfeld/vim-yankstack'
 " - Refactoring / easier code writing
 " Plugin 'mattn/emmet-vim'
 Plugin 'lfilho/cosco.vim'
-Plugin 'tpope/vim-dotenv'
+if has("unix")
+  Plugin 'tpope/vim-dotenv'
+endif
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'Chiel92/vim-autoformat'
 " TODO: Install formatters for Octave, Ruby, Python
@@ -253,7 +255,7 @@ set background=dark
 silent do ColorScheme
 
 set title
-set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)
+set titlestring=vim\ -\ %t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)
 autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
 
 " #General (plugin-nonspecific) Auto Commands
@@ -463,14 +465,18 @@ set laststatus=2
 let g:airline_theme = 'wombat'
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#syntastic#enabled = 0
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+if has("win32unix") || has("win32") || has ('win64')
+  let g:airline_powerline_fonts = 1
+else
+  if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.whitespace = 'Ξ'
 endif
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.whitespace = 'Ξ'
 
 " Autopairs
 " let g:AutoPairsShortcutToggle = ''
