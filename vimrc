@@ -207,6 +207,9 @@ set ignorecase " Ignore case when searching
 set smartcase  " Try and be smart about cases
 set magic
 nnoremap // :nohlsearch<cr>
+" Center next match
+nnoremap n nzz
+nnoremap N Nzz
 
 set iskeyword+=_
 
