@@ -134,9 +134,6 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'reedes/vim-one'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'rickhowe/diffchar.vim'
-if has('python')
-  Plugin 'jaxbot/github-issues.vim'
-endif
 " Better multifile search
 " Plugin 'wincent/ferret'
 
@@ -476,7 +473,7 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.whitespace = 'Ξ'
 
 " Autopairs
-let g:AutoPairsShortcutToggle = ''
+" let g:AutoPairsShortcutToggle = ''
 
 " Cosco - smart-add semicolons / commas
 autocmd FileType javascript,css,php,matlab nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
@@ -587,8 +584,8 @@ let g:tex_conceal='b'
 nmap <leader>] :RainbowParentheses!!<CR>
 
 " Snipmate
-" imap <C-J> <Plug>snipMateNextOrTrigger
-" smap <C-J> <Plug>snipMateNextOrTrigger
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
 " PHP Snipmate only inserts php
 "let g:snipMate = {}
 "let g:snipMate.scope_aliases['php'] = 'php'
@@ -715,6 +712,8 @@ augroup END
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_dir_link = 'index'
+" disable the <tab> mapping provided by vimwiki, which interferes with SuperTab (per vimwiki#148)
+let g:vimwiki_table_mappings = 0
 let g:vimwiki_auto_chdir = 1
 augroup vimwiki
   autocmd BufNewFile,BufRead ~/vimwiki/* set ft=vimwiki syntax=vimwiki
