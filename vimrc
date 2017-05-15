@@ -190,9 +190,9 @@ set modelines=1
 set clipboard^=unnamed " Use system clipboard
 
 " No backup file or undo file (git, Yankring take care of that)
-set nobackup
-set noswapfile
-set noundofile
+set undodir=$VIMHOME/undodir//
+set backupdir=$VIMHOME/.backup//
+set directory=$VIMHOME/.swp//
 
 if has('mouse')
   set ttymouse=xterm2

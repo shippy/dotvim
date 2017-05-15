@@ -3,3 +3,8 @@ tags
 doc/tags
 session/*
 bundle/*
+undodir/*
+swapdir/*
+bckpdir/*
+
+!.gitkeep
