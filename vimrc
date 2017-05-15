@@ -367,6 +367,9 @@ nnoremap Y y$
 " Visually select the text that was last edited/pasted
 nmap gV `[v`]
 
+" Extend dot repeat to visual selection
+vnoremap . :norm.<CR>
+
 " Remove F1 and Q mappings
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
