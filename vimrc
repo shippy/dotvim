@@ -201,10 +201,12 @@ endif
 
 " #Searching/Moving
 set gdefault   " Add the g flag to search/replace by default
-set hlsearch
+set magic      " Fewer escaping needed in search
 set ignorecase " Ignore case when searching
-set smartcase  " Try and be smart about cases
-set magic
+" set smartcase  " Don't ignore case when there's at least one upper-case character
+" (turned off because Dragon Professional Individual occasionally upper-cases
+" word recognitions capriciously)
+set hlsearch
 nnoremap // :nohlsearch<cr>
 " Center next match
 nnoremap n nzz
