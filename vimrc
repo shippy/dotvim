@@ -256,6 +256,9 @@ silent do ColorScheme
 
 set title
 set titlestring=vim\ -\ %t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)
+" Disable 'Thanks for flying vim'
+let &titleold=getcwd()
+
 autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
 
 " #General (plugin-nonspecific) Auto Commands
@@ -281,6 +284,9 @@ augroup END
 augroup reload_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
+  if has('gui')
+    autocmd BufWritePost $MYVIMRC,$MYGVIMRC source $MYGVIMRC
+  endif
 augroup END
 
 " Restore cursor position
@@ -501,16 +507,25 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag -i --nocolor --nogroup --hidden -g "" %s'
+  " see https://github.com/kien/ctrlp.vim/issues/665
+elseif (has("win32") || has("win64") || has("win95") || has("win16"))
+  let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
 endif
 
 " Dirvish / netrw
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
-nnoremap <C-w>S :Sex<CR>
-nnoremap <C-w>V :Vex<CR>
-nnoremap <Leader>S :Sex<CR>
-nnoremap <Leader>V :Vex<CR>
+nnoremap <C-w>E :Explore<CR>
+nnoremap <C-w>S :Sexplore<CR>
+nnoremap <C-w>V :Vexplore<CR>
+nnoremap <Leader>E :Explore<CR>
+nnoremap <Leader>S :Sexplore<CR>
+nnoremap <Leader>V :Vexplore<CR>
+
+" Dragonfly
+" Preserve the vim custom of 'double-verb operates on a line'
+nnoremap vv V
 
 " Easy-motion
 let g:EasyMotion_leader_key = '<LocalLeader>'

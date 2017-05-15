@@ -1,0 +1,9 @@
+# Dragonfly rule
+snippet rule
+	class ${1:RuleName}Rule(MappingRule)
+		exported = ${2:False}
+		mapping = {
+			$0
+		}
+		extras = []
+		defaults = {}
