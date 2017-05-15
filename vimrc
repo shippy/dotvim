@@ -621,7 +621,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#show_message = 0
-"let g:syntastic_quiet_messages = { "type": "style"  }
+let g:syntastic_quiet_messages = { "type": "style"  }
+let g:syntastic_python_pylint_quiet_messages = { "level" : "warnings" }
 "let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
 
 " Markdown
