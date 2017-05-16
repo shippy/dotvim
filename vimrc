@@ -193,6 +193,8 @@ set clipboard^=unnamed " Use system clipboard
 set undodir=$VIMHOME/undodir//
 set backupdir=$VIMHOME/.backup//
 set directory=$VIMHOME/.swp//
+set backup
+set writebackup
 
 if has('mouse')
   set ttymouse=xterm2
