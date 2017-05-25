@@ -190,11 +190,10 @@ set modelines=1
 set clipboard^=unnamed " Use system clipboard
 
 " No backup file or undo file (git, Yankring take care of that)
-set undodir=$VIMHOME/undodir//
-set backupdir=$VIMHOME/.backup//
-set directory=$VIMHOME/.swp//
-set backup
-set writebackup
+set undodir^=$VIMHOME/undodir//
+" set backupdir^=$VIMHOME/.backup//
+" set directory^=$VIMHOME/.swp//
+set nobackup
 
 if has('mouse')
   set ttymouse=xterm2
@@ -267,12 +266,7 @@ autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %"
 
 " #General (plugin-nonspecific) Auto Commands
 " Get autocompletion for filetypes
-set omnifunc=syntaxcomplete#Complete
-au FileType php setl ofu=phpcomplete#CompletePHP
-au FileType ruby,eruby setl ofu=rubycomplete#Complete
-au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
-au FileType c setl ofu=ccomplete#CompleteCpp
-au FileType css setl ofu=csscomplete#CompleteCSS
+" set omnifunc=syntaxcomplete#Complete
 
 " Fix for crontab editing
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
@@ -358,6 +352,8 @@ nmap <leader>x :x!<cr>
 nmap <leader>q :q!<cr>
 command! W w !sudo tee % > /dev/null
 
+" Change the directory to the current file
+nnoremap <leader>cd lcd %:h
 " Yanking
 " To protect vim-surround and sneak, called early
 call yankstack#setup()
@@ -732,7 +728,7 @@ augroup END
 " Single-project bindings
 augroup matlab_ptb
   autocmd!
-  autocmd BufNewFile,BufRead ~/Coding/RNA_PTB_task/*
+  autocmd BufNewFile,BufRead ~/Coding/PsychTaskFramework/*
         \ nnoremap <buffer> <leader>vr :call VimuxRunCommand("matlab -nodesktop -nosplash")<CR> |
         \ nnoremap <buffer> <leader>vx :call VimuxSendText("sca\n")<CR>
 augroup END
