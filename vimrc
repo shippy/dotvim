@@ -80,7 +80,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 " TODO: Figure out use case of tbone vs. vimux
 
 " General coding
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'tpope/vim-endwise'
 
 " Language-specific
