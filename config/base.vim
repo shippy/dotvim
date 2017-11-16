@@ -16,7 +16,7 @@ set clipboard^=unnamed " Use system clipboard
 " No backup file or undo file (git, Yankring take care of that)
 set undodir^=$VIMHOME/undodir//
 " set backupdir^=$VIMHOME/.backup//
-" set directory^=$VIMHOME/.swp//
+set directory=$VIMHOME/swapdir//
 set nobackup
 
 if has('mouse')
