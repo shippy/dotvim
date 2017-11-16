@@ -1,5 +1,5 @@
 " get tmux title to update
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window %")
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window ". expand("%"))
 
 " Fix for crontab editing
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
@@ -29,7 +29,7 @@ if has("autocmd")
 endif
 
 " Save on losing focus
-au FocusLost * :silent wa
+au FocusLost * :silent! wa
 
 " Automatically leave insert mode after `updatetime` ms of inaction (Vimtips)
 au CursorHoldI * stopinsert
