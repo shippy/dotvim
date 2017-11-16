@@ -58,7 +58,11 @@ set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*
 set wildmode=longest:full,full
 set cursorline                      " Highlight current line
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
-set foldlevel=99    "File unfolded, always - use zM to close
+
+" Folding
+set foldenable
+set foldmethod=indent
+" set foldlevel=99    "File unfolded, always - use zM to close
 
 colorscheme ron
 set background=dark

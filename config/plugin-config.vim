@@ -61,8 +61,9 @@ let g:user_emmet_leader_key = '<c-e>'
 let g:EnhancedJumps_CaptureJumpMessages = 0
 
 " Markdown
-let g:vim_markdown_initial_foldlevel=1
-let g:vim_markdown_conceal=1
+" let g:vim_markdown_folding_disabled=1
+" let g:vim_markdown_initial_foldlevel=1
+" let g:vim_markdown_conceal=1
 " FIXME: in iTerm2 / tmux, vim doesn't delete the *space* that MD link
 " URLs have, even though it hides them from view? To investigate further
 
@@ -111,9 +112,6 @@ let g:airline#extensions#whitespace#show_message = 0
 let g:syntastic_quiet_messages = { "type": "style"  }
 let g:syntastic_python_pylint_quiet_messages = { "level" : "warnings" }
 "let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
-
-" Markdown
-let g:vim_markdown_folding_disabled=1
 
 " Goyo
 " Disable tmux on enter for Goyo
@@ -183,3 +181,4 @@ let g:vimwiki_dir_link = 'index'
 " disable the <tab> mapping provided by vimwiki, which interferes with SuperTab (per vimwiki#148)
 let g:vimwiki_table_mappings = 0
 let g:vimwiki_auto_chdir = 1
+let g:vimwiki_folding='list'
