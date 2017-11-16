@@ -55,7 +55,7 @@ nnoremap K i<Enter><esc>h
 nnoremap <leader>ev :tabedit $MYVIMRC<cr>
 nnoremap <leader>ez :tabedit ~/.zshrc<cr>
 nnoremap <leader>es :tabedit ~/.vim/bundle/vim-snippets/snippets<CR>
-nnoremap <leader>et :tabedit ~/.tmux/tmux.conf
+nnoremap <leader>et :tabedit ~/.tmux/tmux.conf<cr>
 
 " Dragonfly
 " Preserve the vim custom of 'double-verb operates on a line'
@@ -150,7 +150,7 @@ nmap <leader>g :Goyo<CR>
 
 " Vimux
 " Prompt command
-map <leader>v :VimuxPromptCommand
+nmap <leader>v :VimuxPromptCommand
 
 function! VimuxSlime()
   " Grab register v

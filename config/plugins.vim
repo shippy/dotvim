@@ -22,7 +22,6 @@ Plugin 'tpope/vim-commentary'
 Plugin 'jiangmiao/auto-pairs'
 " TODO: Investigate MATLAB not closing `end`?
 Plugin 'rhysd/clever-f.vim'
-Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'tpope/vim-eunuch'
 
 " Usability improvements
@@ -50,6 +49,7 @@ Plugin 'tpope/vim-tbone'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tmux-plugins/vim-tmux-focus-events'
 " TODO: Figure out use case of tbone vs. vimux
 
 " General coding
