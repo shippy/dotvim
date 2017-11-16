@@ -135,12 +135,12 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " Sneak
 let g:sneak#streak = 1
 
-" SuperTab
-let g:SuperTabDefaultCompletionType = 'context'
-autocmd FileType *
-      \ if &omnifunc != '' |
-      \   call SuperTabChain(&omnifunc, "<c-p>") |
-      \ endif
+" " SuperTab
+" let g:SuperTabDefaultCompletionType = 'context'
+" autocmd FileType *
+"       \ if &omnifunc != '' |
+"       \   call SuperTabChain(&omnifunc, "<c-p>") |
+"       \ endif
 
 " Vimux (although don't forget about vim-ipython)
 let g:VimuxUseNearest = 1

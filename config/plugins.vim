@@ -12,7 +12,8 @@ Plugin 'mileszs/ack.vim'
 " Two above: Make sure that SilverSearcher is used
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-Plugin 'ervandew/supertab'
+Plugin 'ajh17/VimCompletesMe'
+" Plugin 'ervandew/supertab'
 " TODO: Complement with a better completion plugin
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-sensible'
@@ -108,6 +109,7 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'reedes/vim-one'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'rickhowe/diffchar.vim'
+Plugin 'will133/vim-dirdiff'
 " Better multifile search
 " Plugin 'wincent/ferret'
 
