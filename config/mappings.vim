@@ -183,6 +183,9 @@ nmap <leader>vb ggVG<leader>vs
 nmap s <Plug>Sneak_s
 nmap S <Plug>Sneak_S
 
+" Vimwiki
+nmap <leader>- <Plug>VimwikiToggleListItem
+
 " ---- Function calls ----
 " Remove whitespace on save (cribbed from @marcgg)
 nnoremap <leader>= :silent call Preserve("normal gg=G")<CR>
