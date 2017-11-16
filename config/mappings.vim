@@ -83,8 +83,8 @@ autocmd FileType javascript,css,php,matlab nnoremap <silent> <Leader>; :call cos
 autocmd FileType javascript,css,php,matlab inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
 
 " CtrlP
-nnoremap <Leader>t :CtrlPTag<CR>
-nnoremap <Leader>f :CtrlPMixed<CR>
+" nnoremap <Leader>t :CtrlPTag<CR>
+" nnoremap <Leader>f :CtrlPMixed<CR>
 
 " Dirvish / netrw
 nnoremap <C-w>E :Explore<CR>
@@ -129,6 +129,15 @@ nmap <leader>] :RainbowParentheses!!<CR>
 " Snipmate
 imap <C-J> <Plug>snipMateNextOrTrigger
 smap <C-J> <Plug>snipMateNextOrTrigger
+
+" FZF
+" nnoremap <Leader>f :call fzf#run({'sink': 'e'})
+nnoremap <Leader>f :Files<CR>
+" nnoremap <Leader><Enter> :FZFMru<CR>
+nnoremap <Leader><Enter> :History<CR>
+" nnoremap <Leader>b :FZFBuffers<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>gf :Commits<CR>
 
 " Goyo
 nmap <leader>g :Goyo<CR>

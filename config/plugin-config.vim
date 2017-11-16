@@ -31,6 +31,7 @@ endif
 let g:csv_autocmd_arrange = 1
 
 " CtrlP
+let loaded_ctrlp = 1
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_match_window_bottom = 0 " Show at top of window

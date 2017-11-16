@@ -6,7 +6,8 @@ Plugin 'tpope/vim-repeat'
 " TODO: Make sure I know how it works
 
 " Essential usage
-Plugin 'ctrlpvim/ctrlp.vim'
+" Replacing CtrlP with fzf
+" Plugin 'ctrlpvim/ctrlp.vim' 
 Plugin 'mileszs/ack.vim'
 " Two above: Make sure that SilverSearcher is used
 Plugin 'garbas/vim-snipmate'

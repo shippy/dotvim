@@ -18,6 +18,7 @@ let $MYGVIMRC  = g:vim_home . '/gvimrc'
 exec 'source ' . g:vim_home . '/config/per-machine.vim'
 
 set runtimepath+=$VIMHOME/bundle/Vundle.vim
+set runtimepath+=/usr/local/opt/fzf
 call vundle#begin()
 Plugin 'shippy/Vundle.vim'
 exec 'source ' . g:vim_home . '/config/plugins.vim'
