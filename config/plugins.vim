@@ -33,9 +33,11 @@ Plugin 'vim-scripts/TaskList.vim'
 Plugin 'justinmk/vim-sneak'
 Plugin 'vim-scripts/EnhancedJumps'
 Plugin 'tpope/vim-obsession'
-Plugin 'dhruvasagar/vim-prosession'
+if has("unix")
+  Plugin 'dhruvasagar/vim-prosession'
+  Plugin 'ludovicchabant/vim-gutentags'
+endif
 " Plugin 'justinmk/vim-dirvish'
-Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'tpope/vim-sleuth'
 Plugin 'Lokaltog/vim-easymotion'
 
@@ -65,12 +67,12 @@ Plugin 'vim-ruby/vim-ruby'
 " Plugin 'StanAngeloff/php.vim'
 Plugin 'lervag/vimtex'
 " Plugin 'ivanov/vim-ipython'
-Plugin 'chrisbra/csv.vim'
+" Plugin 'chrisbra/csv.vim'
 " TODO for R: https://github.com/jalvesaq/Nvim-R,
 Plugin 'vim-pandoc/vim-pandoc'
 let g:pandoc#filetypes#pandoc_markdown = 0
 
-Plugin 'vim-scripts/MatlabFilesEdition'
+" Plugin 'vim-scripts/MatlabFilesEdition'
 
 " https://github.com/jeroendehaas/VimLab
 
