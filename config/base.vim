@@ -37,6 +37,8 @@ set hlsearch
 set number " Always show line numbers
 set scrolloff=7
 set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
+set listchars=tab:>-,trail:·
+set list
 set expandtab
 set autoindent
 set smartindent

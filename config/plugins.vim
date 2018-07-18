@@ -39,7 +39,9 @@ if has("unix")
 endif
 " Plugin 'justinmk/vim-dirvish'
 Plugin 'tpope/vim-sleuth'
-Plugin 'Lokaltog/vim-easymotion'
+Plugin 'easymotion/vim-easymotion'
+" Plugin 'yangmillstheory/vim-snipe'
+Plugin 'wincent/terminus'
 
 " Visual
 Plugin 'vim-airline/vim-airline'
@@ -61,15 +63,16 @@ Plugin 'w0rp/ale'
 Plugin 'tpope/vim-endwise'
 
 " Language-specific
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'
 " Plugin 'vim-pandoc/vim-rmarkdown'
+" Plugin 'gabrielelana/vim-markdown'
 Plugin 'vim-ruby/vim-ruby'
 " Plugin 'StanAngeloff/php.vim'
-Plugin 'lervag/vimtex'
+" Plugin 'lervag/vimtex'
 " Plugin 'ivanov/vim-ipython'
 " Plugin 'chrisbra/csv.vim'
 " TODO for R: https://github.com/jalvesaq/Nvim-R,
-Plugin 'vim-pandoc/vim-pandoc'
+" Plugin 'vim-pandoc/vim-pandoc'
 let g:pandoc#filetypes#pandoc_markdown = 0
 
 " Plugin 'vim-scripts/MatlabFilesEdition'
@@ -147,5 +150,3 @@ Plugin 'idanarye/vim-merginal'
 " let g:tmuxline_powerline_separators = 0
 
 " - Misc
-
-

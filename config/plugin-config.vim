@@ -182,3 +182,5 @@ let g:vimwiki_dir_link = 'index'
 let g:vimwiki_table_mappings = 0
 let g:vimwiki_auto_chdir = 1
 let g:vimwiki_folding='list'
+let g:vimwiki_hl_cb_checked=1
+let g:vimwiki_auto_chdir=1
