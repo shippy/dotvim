@@ -70,6 +70,57 @@ set background=dark
 silent do ColorScheme
 
 set title
-set titlestring=vim\ -\ %t%(\ %M%)%(\ (%{expand(\"%:p:h\")})%)%(\ %a%)
+" set titlestring=vim\ -\ %t%(\ %M%)%(\ (%{expand(\"%:h\")})%)%(\ %a%)
+set titlestring=vim
 " Disable 'Thanks for flying vim'
 let &titleold=getcwd()
+
+" Tmux tweaks from
+" http://tangosource.com/blog/a-tmux-crash-course-tips-and-tweaks/
+" Fix cursor in tmux
+" if exists('$ITERM_PROFILE')
+"   if exists('$TMUX') 
+"     let &t_SI = "\<Esc>[3 q"
+"     let &t_EI = "\<Esc>[0 q"
+"   else
+"     let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+"     let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+"   endif
+" end
+
+if exists('$TMUX')
+  let &t_SI = "\ePtmux;\e\e[5 q\e\\"
+  let &t_EI = "\ePtmux;\e\e[2 q\e\\"
+else
+  let &t_SI = "\e[5 q"
+  let &t_EI = "\e[2 q"
+endif
+
+" for tmux to automatically set paste and nopaste mode at the time pasting (as
+" happens in VIM UI)
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+" let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+" let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+" inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+" Saner joins (courtesy of https://kinbiko.com/vim/my-shiniest-vim-gems/)
+if v:version > 703 || v:version == 703 && has('patch541')
+  set formatoptions+=j
+endif

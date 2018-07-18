@@ -1,5 +1,5 @@
 " get tmux title to update
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window ". expand("%"))
+" autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window ". expand("%"))
 
 " Fix for crontab editing
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
