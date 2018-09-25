@@ -38,7 +38,14 @@ set expandtab
 set autoindent
 set smartindent
 if has("linebreak")
-  set breakindent
+  try
+    set breakindent
+    let &showbreak = '↳ '
+    let &breakat = " \t;:,])}"
+    set cpo+=n
+  catch /E518:/
+    " Unknown option: breakindent
+  endtry
 endif
 
 " #Searching

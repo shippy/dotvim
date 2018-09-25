@@ -2,7 +2,6 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
-set smartindent
 set hidden            " Useful for auto setting hidden buffers
 set nostartofline     " Don't reset cursor to start of line when moving around
 set whichwrap+=<,>,h,l,[,] " Wrap over end-of-line to next
@@ -40,13 +39,24 @@ set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set listchars=tab:>-,trail:·
 set list
 set expandtab
+set smarttab
 set autoindent
-set smartindent
-if exists('+breakindent')
-  set breakindent
-  let &showbreak = '↳ '
-  let &breakat = " \t;:,])}"
-  set cpo+=n
+" set smartindent
+" To stop messing up hash comment indentation
+" See: http://vim.wikia.com/wiki/Restoring_indent_after_typing_hash
+set nosmartindent
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
+if has("linebreak")
+  try
+    set breakindent
+    let &showbreak = '↳ '
+    let &breakat = " \t;:,])}"
+    set cpo+=n
+  catch /E518:/
+    " Unknown option: breakindent
+  endtry
 endif
 set showcmd    " Shows incomplete command
 set noerrorbells
@@ -59,6 +69,8 @@ set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*
 set wildmode=longest:full,full
 set cursorline                      " Highlight current line
+" Make the highlight light-grey without resetting syntax highlighting (rather
+" than an underline)
 set t_Co=256                        " Explicitly tell Vim that the terminal supports 256 colors
 
 " Folding
@@ -70,6 +82,8 @@ colorscheme ron
 set background=dark
 " To keep styles after post-edit sourcing .vimrc
 silent do ColorScheme
+" This line must follow background setting + redraw, otherwise it won't stick
+hi CursorLine cterm=NONE ctermbg=8 ctermfg=NONE
 
 set title
 " set titlestring=vim\ -\ %t%(\ %M%)%(\ (%{expand(\"%:h\")})%)%(\ %a%)
