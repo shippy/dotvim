@@ -12,11 +12,25 @@ set ffs=unix,dos,mac
 set modelines=1
 set clipboard^=unnamed " Use system clipboard
 
-" No backup file or undo file (git, Yankring take care of that)
-set undodir^=$VIMHOME/undodir//
-" set backupdir^=$VIMHOME/.backup//
-set directory=$VIMHOME/swapdir//
-set nobackup
+" Set up undo, swap, and backup directories (in that order of priority)
+" ^= adds the value to the front of the list, += appends to the end
+if has('persistent_undo')
+  set undofile
+  set undolevels=10000
+  set undoreload=20000
+  if isdirectory($VIMHOME . '/undodir')
+    set undodir^=$VIMHOME/undodir//
+  endif
+endif
+
+set directory^=$VIMHOME/swapdir//
+
+if isdirectory($VIMHOME . '/bckpdir')
+  set backup
+  set backupdir^=$VIMHOME/bckpdir//
+else
+  set nobackup
+endif
 
 if has('mouse')
   set ttymouse=xterm2
