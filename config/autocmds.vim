@@ -53,8 +53,8 @@ augroup writing
         \ setl nonumber |
         \ call textobj#sentence#init() |
         \ call pencil#init() |
-        \ call litecorrect#init() |
-        \ call lexical#init()
+        \ call litecorrect#init() "|
+        "\ call lexical#init()
 augroup END
 
 augroup except_help

@@ -73,14 +73,17 @@ nmap <Leader>a :Ack! ""<left>
 " Search word under cursor
 nmap <Leader>* :Ack!<CR>
 " Search the last search
-nmap <Leader>A :AckFromSearch!<CR>
+" nmap <Leader>A :AckFromSearch!<CR>
 " Execute over every entry in quicklist
 nmap <Leader>c :cdo<space>
 nmap <Leader>C :cdo s//
 
+" Ag / FZF
+nnoremap <Leader>A :Ag<CR>
+
 " Cosco - smart-add semicolons / commas
-autocmd FileType javascript,css,php,matlab nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
-autocmd FileType javascript,css,php,matlab inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
+" autocmd FileType javascript,css,php,matlab nnoremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
+" autocmd FileType javascript,css,php,matlab inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
 
 " CtrlP
 " nnoremap <Leader>t :CtrlPTag<CR>
@@ -117,7 +120,7 @@ nmap <Leader>m :Dispatch<CR>
 nmap <Leader>M :Dispatch!<CR>
 
 " Merginal
-nmap <leader>gm :MerginalToggle<CR>
+" nmap <leader>gm :MerginalToggle<CR>
 
 " NerdCommenter / Commentary (maps <C-/>)
 "map <C-_> <Plug>NERDCommenterToggle

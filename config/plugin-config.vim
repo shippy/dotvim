@@ -1,5 +1,10 @@
 " To protect vim-surround and sneak, called early
-call yankstack#setup()
+" ...but enclose in a try block, just in case the yankstack plugin hasn't been
+" installed yet
+try
+  call yankstack#setup()
+catch
+endtry
 
 " Ack
 if executable('ag')
@@ -8,21 +13,47 @@ endif
 
 " Airline
 set laststatus=2
-let g:airline_theme = 'wombat'
-"let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#syntastic#enabled = 0
-if has("win32unix") || has("win32") || has ('win64')
-  let g:airline_powerline_fonts = 1
-else
-  if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
-  let g:airline_left_sep = '▶'
-  let g:airline_right_sep = '◀'
-  let g:airline_symbols.linenr = '¶'
-  let g:airline_symbols.branch = '⎇'
-  let g:airline_symbols.whitespace = 'Ξ'
-endif
+set noshowmode   " Don't need '-- INSERT --' at the bottom anymore
+"let g:airline_theme = 'wombat'
+""let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#syntastic#enabled = 0
+"if has("win32unix") || has("win32") || has ('win64')
+"  let g:airline_powerline_fonts = 1
+"else
+"  if !exists('g:airline_symbols')
+"    let g:airline_symbols = {}
+"  endif
+"  let g:airline_left_sep = '▶'
+"  let g:airline_right_sep = '◀'
+"  let g:airline_symbols.linenr = '¶'
+"  let g:airline_symbols.branch = '⎇'
+"  let g:airline_symbols.whitespace = 'Ξ'
+"endif
+
+" fugitive#head is the default gitbranch component function
+" fugitive#Head(7) gives the actual required output
+function! FugitiveHead7()
+  return winwidth(0) > 70 ? fugitive#Head(7) : ''
+endfunction
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead7',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \ },
+      \ }
 
 " Autopairs
 " let g:AutoPairsShortcutToggle = ''
@@ -30,32 +61,32 @@ endif
 " CSV
 let g:csv_autocmd_arrange = 1
 
-" CtrlP
-let loaded_ctrlp = 1
-let g:ctrlp_map = '<c-f>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_match_window_bottom = 0 " Show at top of window
-let g:ctrlp_working_path_mode = 2 " Smart path mode
-let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag -i --nocolor --nogroup --hidden -g "" %s'
-  " see https://github.com/kien/ctrlp.vim/issues/665
-elseif (has("win32") || has("win64") || has("win95") || has("win16"))
-  let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-endif
+" " CtrlP
+" let loaded_ctrlp = 1
+" let g:ctrlp_map = '<c-f>'
+" let g:ctrlp_cmd = 'CtrlPMixed'
+" let g:ctrlp_match_window_bottom = 0 " Show at top of window
+" let g:ctrlp_working_path_mode = 2 " Smart path mode
+" let g:ctrlp_mru_files = 1 " Enable Most Recently Used files feature
+" let g:ctrlp_show_hidden = 1
+" let g:ctrlp_clear_cache_on_exit = 1
+" let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+" if executable('ag')
+"   let g:ctrlp_user_command = 'ag -i --nocolor --nogroup --hidden -g "" %s'
+"   " see https://github.com/kien/ctrlp.vim/issues/665
+" elseif (has("win32") || has("win64") || has("win95") || has("win16"))
+"   let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
+" endif
 
 " Dirvish / netrw
 " let g:loaded_netrw = 1
 " let g:loaded_netrwPlugin = 1
 
 " Easy-motion
-let g:EasyMotion_leader_key = '<LocalLeader>'
+" let g:EasyMotion_leader_key = '<LocalLeader>'
 
 " Emmet
-let g:user_emmet_leader_key = '<c-e>'
+" let g:user_emmet_leader_key = '<c-e>'
 
 " EnhancedJumps
 let g:EnhancedJumps_CaptureJumpMessages = 0
@@ -95,23 +126,24 @@ let g:pencil#autoformat_blacklist = [
       \ ]
 
 " crosh makes a mess of unicode -> disable concealment
-let g:tex_conceal='b'
+" let g:tex_conceal='b'
 
 " PHP Snipmate only inserts php
 "let g:snipMate = {}
 "let g:snipMate.scope_aliases['php'] = 'php'
 
-" Syntastic
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#whitespace#show_message = 0
-let g:syntastic_quiet_messages = { "type": "style"  }
-let g:syntastic_python_pylint_quiet_messages = { "level" : "warnings" }
-"let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
+"" Syntastic
+"" Now deprecated in favor of Ale
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_loc_list_height = 5
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:airline#extensions#whitespace#enabled = 0
+"let g:airline#extensions#whitespace#show_message = 0
+"let g:syntastic_quiet_messages = { "type": "style"  }
+"let g:syntastic_python_pylint_quiet_messages = { "level" : "warnings" }
+""let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
 
 " Goyo
 " Disable tmux on enter for Goyo
@@ -133,7 +165,7 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " Sneak
-let g:sneak#streak = 1
+" let g:sneak#streak = 1
 
 " " SuperTab
 " let g:SuperTabDefaultCompletionType = 'context'

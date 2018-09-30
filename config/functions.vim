@@ -88,7 +88,7 @@ function! SummarizeTabs()
     echon ' shiftwidth='.&l:sw
     echon ' softtabstop='.&l:sts
     if &l:et
-      echon ' expantab'
+      echon ' expandtab'
     else
       echon ' noexpandtab'
     endif
