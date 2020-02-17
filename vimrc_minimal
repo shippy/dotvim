@@ -2,6 +2,11 @@
 " Basics
 set nocompatible
 
+" TODO: Check if this is running from SSHHOME
+let g:vim_home = expand('<sfile>:p:h') . '/'
+" Already specific in $VIMINIT by .sshrc
+" let $MYVIMRC   = g:vim_home . 'vimrc'
+
 filetype on
 filetype plugin on
 filetype indent on
@@ -190,3 +195,17 @@ set statusline+=%=
 "set statusline+=lines\
 set statusline+=\ FileType:\ %y\
 set statusline+=\(%-3p%%\)
+
+" Per-language / filetype
+if has("autocmd")
+  autocmd! filetype crontab setlocal nobackup nowritebackup backupcopy=yes formatoptions=
+  autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
+endif
+
+" Auto-load everything in the plugins folder
+let plugin_path = g:vim_home . "/vim_plugins"
+
+" The third globpath arg is needed because vim ignores hidden files by default
+for rcfile in split(globpath(plugin_path, "*.vim", 1), '\n') 
+  execute('source '.rcfile)
+endfor
