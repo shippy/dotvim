@@ -123,35 +123,37 @@ let &titleold=getcwd()
 "   endif
 " end
 
-if exists('$TMUX')
-  let &t_SI = "\ePtmux;\e\e[5 q\e\\"
-  let &t_EI = "\ePtmux;\e\e[2 q\e\\"
-else
-  let &t_SI = "\e[5 q"
-  let &t_EI = "\e[2 q"
-endif
+" if has("macunix")
+"   if exists('$TMUX')
+"     let &t_SI = "\ePtmux;\e\e[5 q\e\\"
+"     let &t_EI = "\ePtmux;\e\e[2 q\e\\"
+"   else
+"     let &t_SI = "\e[5 q"
+"     let &t_EI = "\e[2 q"
+"   endif
+" endif
 
 " for tmux to automatically set paste and nopaste mode at the time pasting (as
 " happens in VIM UI)
-function! WrapForTmux(s)
-  if !exists('$TMUX')
-    return a:s
-  endif
+" function! WrapForTmux(s)
+"   if !exists('$TMUX')
+"     return a:s
+"   endif
 
-  let tmux_start = "\<Esc>Ptmux;"
-  let tmux_end = "\<Esc>\\"
+"   let tmux_start = "\<Esc>Ptmux;"
+"   let tmux_end = "\<Esc>\\"
 
-  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
-endfunction
+"   return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+" endfunction
 
 " let &t_SI .= WrapForTmux("\<Esc>[?2004h")
 " let &t_EI .= WrapForTmux("\<Esc>[?2004l")
 
-function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
-endfunction
+" function! XTermPasteBegin()
+"   set pastetoggle=<Esc>[201~
+"   set paste
+"   return ""
+" endfunction
 
 " inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
