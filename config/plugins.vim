@@ -33,7 +33,7 @@ Plugin 'tpope/vim-endwise'
 " Usability improvements
 if g:fzf_exists
   Plugin 'junegunn/fzf.vim'
-else
+elseif has('python') || has('python3')
   " fzf alternative on windows
   Plugin 'Yggdroot/LeaderF'
 endif

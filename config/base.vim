@@ -36,7 +36,9 @@ else
 endif
 
 if has('mouse')
-  set ttymouse=xterm2
+  if !has('nvim')
+    set ttymouse=xterm2
+  endif
   set mouse=a
 endif
 
