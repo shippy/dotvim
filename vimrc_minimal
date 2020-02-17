@@ -11,13 +11,18 @@ syntax on
 set number " Always show line numbers
 set modelines=1
 set scrolloff=7
-set cursorline                      " Highlight current line
 set showcmd    " Shows incomplete command
 
 try
   colorscheme ron
 catch
 endtry
+" To keep styles after post-edit sourcing .vimrc
+silent do ColorScheme
+" Highlight current line without underlining it
+set cursorline
+" This line must follow background setting + redraw, otherwise it won't stick
+hi CursorLine cterm=NONE ctermbg=8 ctermfg=NONE
 
 " Behavior
 set hidden            " Useful for auto setting hidden buffers
