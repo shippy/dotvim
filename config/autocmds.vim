@@ -69,3 +69,6 @@ augroup END
 augroup vimwiki
   autocmd BufNewFile,BufRead ~/vimwiki/* set ft=vimwiki syntax=vimwiki
 augroup END
+
+" Treat new files as markdown
+autocmd BufEnter * if &filetype == "" | setlocal ft=text | endif
