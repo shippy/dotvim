@@ -37,6 +37,34 @@ set wildignore+=*.jpg,*.jpeg,*.gif,*.png,*.gif,*.psd,*.o,*.obj,*.min.js
 set wildignore+=*/smarty/*,*/vendor/*,*/node_modules/*,*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/*,*/log/*,*/tmp/*,*/build/*,*/ckeditor/*
 set wildmode=longest:full,full
 
+" " Swap and backup files
+" if has('persistent_undo')
+"   set undofile
+"   set undolevels=10000
+"   set undoreload=20000
+"   " TODO: Create directory if it doesn't exist
+"   if isdirectory('/tmp/undodir')
+"     set undodir^=/tmp/undodir//
+"   endif
+" endif
+
+" " TODO: Create directory if it doesn't exist
+" set directory^=/tmp/swapdir//
+
+" " TODO: Create directory if it doesn't exist
+" if isdirectory('/tmp/bckpdir')
+"   set backup
+"   set backupdir^=/tmp/bckpdir//
+" else
+"   set nobackup
+" endif
+set backup
+set backupcopy=yes,breakhardlink
+set backupdir=./.bkp//,/tmp//
+set directory=./.bkp//,/tmp//
+" set nobackup
+" set nowritebackup
+
 " Tabs and indent
 set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set expandtab
