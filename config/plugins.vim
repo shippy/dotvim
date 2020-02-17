@@ -132,7 +132,7 @@ Plugin 'tpope/vim-abolish'
 Plugin 'wellle/targets.vim'
 " Plugin 'reedes/vim-one'
 Plugin 'sheerun/vim-polyglot'
-" Plugin 'rickhowe/diffchar.vim'
+Plugin 'rickhowe/diffchar.vim'
 " Plugin 'will133/vim-dirdiff'
 " Better multifile search
 " Plugin 'wincent/ferret'

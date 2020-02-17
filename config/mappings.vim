@@ -136,6 +136,7 @@ smap <C-J> <Plug>snipMateNextOrTrigger
 " FZF
 " nnoremap <Leader>f :call fzf#run({'sink': 'e'})
 nnoremap <Leader>f :Files %:h<CR>
+nnoremap <Leader>g :GFiles<CRk
 nnoremap <Leader>h :Helptags<CR>
 " nnoremap <Leader><Enter> :FZFMru<CR>
 nnoremap <Leader><Enter> :History<CR>
@@ -144,7 +145,7 @@ nnoremap <Leader>b :Buffers<CR>
 " nnoremap <Leader>gf :Commits<CR>
 
 " Goyo
-nmap <leader>g :Goyo<CR>
+nmap <leader>ig :Goyo<CR>
 
 " #Unimpaired
 " Add a line without changing position or leaving mode: ]<Space> and [<Space>
