@@ -18,12 +18,15 @@ let $MYGVIMRC  = g:vim_home . 'gvimrc'
 exec 'source ' . g:vim_home . 'config/per-machine.vim'
 
 set runtimepath+=$VIMHOME/bundle/Vundle.vim
+let g:fzf_exists = 1
 if isdirectory("/usr/local/opt/fzf")
   set runtimepath+=/usr/local/opt/fzf
 elseif isdirectory($HOME . "/.fzf")
   set runtimepath+=~/.fzf
 elseif isdirectory($HOME . "/bin/fzf")
   set runtimepath+=~/bin/fzf
+else
+  let g:fzf_exists = 0
 endif
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'

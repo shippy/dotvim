@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 filetype on
 filetype plugin on
 filetype indent on
@@ -98,7 +101,9 @@ set background=dark
 silent do ColorScheme
 " This line must follow background setting + redraw, otherwise it won't stick
 hi CursorLine cterm=NONE ctermbg=8 ctermfg=NONE
-
+if has('terminal')
+  hi Terminal ctermbg=lightgrey ctermfg=blue guibg=lightgrey guifg=blue
+endif
 set title
 " set titlestring=vim\ -\ %t%(\ %M%)%(\ (%{expand(\"%:h\")})%)%(\ %a%)
 set titlestring=vim
