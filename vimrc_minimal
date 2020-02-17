@@ -155,23 +155,25 @@ nnoremap <Leader>S :Sexplore<CR>
 nnoremap <Leader>V :Vexplore<CR>
 
 " Visual
+hi statusline ctermfg=darkgrey ctermbg=white term=BOLD
+
 let g:currentmode={ 'n' : 'Normal ', 
-\ 'no' : 'N·Operator Pending ',
+\ 'no': 'N·OpPending ',
 \ 'v' : 'Visual ',
 \ 'V' : 'V·Line ',
-\ '^V' : 'V·Block ',
+\ '^V': 'V·Block ',
 \ 's' : 'Select ',
-\ 'S': 'S·Line ',
-\ '^S' : 'S·Block ',
+\ 'S' : 'S·Line ',
+\ '^S': 'S·Block ',
 \ 'i' : 'Insert ',
 \ 'R' : 'Replace ',
-\ 'Rv' : 'V·Replace ',
+\ 'Rv': 'V·Replace ',
 \ 'c' : 'Command ',
-\ 'cv' : 'Vim Ex ',
-\ 'ce' : 'Ex ',
+\ 'cv': 'Vim Ex ',
+\ 'ce': 'Ex ',
 \ 'r' : 'Prompt ',
-\ 'rm' : 'More ',
-\ 'r?' : 'Confirm ',
+\ 'rm': 'More ',
+\ 'r?': 'Confirm ',
 \ '!' : 'Shell ',
 \ 't' : 'Terminal '}
 function! ModeCurrent() abort
@@ -185,16 +187,14 @@ function! ModeCurrent() abort
 endfunction
 set laststatus=2
 set statusline=
-set statusline+=%<\
-set statusline+=%-10{ModeCurrent()}
-set statusline+=%-40f\
+set statusline+=\ %-9{ModeCurrent()}
+set statusline+=%<%F%r%m
 " Switch to right side
 set statusline+=%=
-"set statusline+=%l\ of
-"set statusline+=\ %L\
-"set statusline+=lines\
-set statusline+=\ FileType:\ %y\
-set statusline+=\(%-3p%%\)
+set statusline+=%l:%-3v
+set statusline+=\|\ \ %-3p%%
+set statusline+=\ \|\ %{&ff}/%{&ft}
+set statusline+=\ 
 
 " Per-language / filetype
 if has("autocmd")
