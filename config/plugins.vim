@@ -31,7 +31,12 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-endwise'
 
 " Usability improvements
-Plugin 'junegunn/fzf.vim'
+if g:fzf_exists
+  Plugin 'junegunn/fzf.vim'
+else
+  " fzf alternative on windows
+  Plugin 'Yggdroot/LeaderF'
+endif
 Plugin 'tpope/vim-dispatch'
 " TODO: Gracefully degrade mapping
 Plugin 'Valloric/ListToggle'
