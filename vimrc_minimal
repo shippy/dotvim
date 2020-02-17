@@ -68,8 +68,15 @@ set directory=./.bkp//,/tmp//
 " Tabs and indent
 set tabstop=2 softtabstop=2 shiftwidth=2 " Default tab stops
 set expandtab
+set smarttab
 set autoindent
-set smartindent
+" set smartindent
+" To stop messing up hash comment indentation
+" See: http://vim.wikia.com/wiki/Restoring_indent_after_typing_hash
+set nosmartindent
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
 if has("linebreak")
   try
     set breakindent
@@ -80,6 +87,9 @@ if has("linebreak")
     " Unknown option: breakindent
   endtry
 endif
+" Automatically wrap comments
+" Use b?
+set formatoptions=jwabcroqln
 
 " #Searching
 set gdefault   " Add the g flag to search/replace by default
@@ -94,12 +104,6 @@ set nostartofline     " Don't reset cursor to start of line when moving around
 set whichwrap+=<,>,h,l,[,] " Wrap over end-of-line to next
 set iskeyword+=_
 
-nnoremap j gj
-nnoremap k gk
-
-nnoremap <CR> G
-nnoremap <BS> gg
-
 " Automatically leave insert mode after `updatetime` ms of inaction (Vimtips)
 if has("autocmd")
   au CursorHoldI * stopinsert
@@ -111,13 +115,19 @@ endif
 let mapleader ="\<Space>"
 inoremap jj <ESC>
 
+nnoremap j gj
+nnoremap k gk
+
+" Saving pinkies by removing one Shift press at a time
+nnoremap ;e1 :e!
+nnoremap ;5s :%s
+
 " Cribbed from @marcgg -- quick switch to previous file
 nnoremap <Leader><Leader> :e#<CR>
 nmap <leader>w :w!<cr>
 nmap <leader>x :x<cr>
-nmap fw :w!<cr>
+nmap <leader>q :q<cr>
 command! W w !sudo tee % > /dev/null
-nmap fq :q!<CR>
 
 " Yank to end of line with Y
 nnoremap Y y$
