@@ -141,8 +141,13 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 nnoremap Q <nop>
 
-" Edit various important files
-nnoremap <leader>ev :tabedit $MYVIMRC<cr>
+" Dirvish / netrw
+nnoremap <C-w>E :Explore<CR>
+nnoremap <C-w>S :Sexplore<CR>
+nnoremap <C-w>V :Vexplore<CR>
+nnoremap <Leader>E :Explore<CR>
+nnoremap <Leader>S :Sexplore<CR>
+nnoremap <Leader>V :Vexplore<CR>
 
 " Visual
 let g:currentmode={ 'n' : 'Normal ', 
